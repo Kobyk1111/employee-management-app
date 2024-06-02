@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 import validator from "validator";
 
 const adminSchema = new Schema({
@@ -25,6 +25,18 @@ const adminSchema = new Schema({
     type: String,
     required: true,
   },
+  departments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Department",
+    },
+  ],
+  employees: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Employee",
+    },
+  ],
 });
 
 const Admin = model("Admin", adminSchema);

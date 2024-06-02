@@ -11,9 +11,15 @@ export async function createAdmin(req, res, next) {
       const hashedPassword = await bcrypt.hash(password, 10);
       const admin = await Admin.create({ ...req.body, password: hashedPassword });
 
+      await admin.populate({ path: "departments", select: "name" });
+
+      await admin.populate("employees");
+
       res.status(201).json({
         id: admin._id,
         username: admin.firstname,
+        departments: admin.departments,
+        employees: admin.employees,
       });
     } else {
       return next(createHttpError(401, "You cannot register as an admin"));
@@ -39,13 +45,92 @@ export async function loginAdmin(req, res, next) {
         return next(createHttpError(400, "Wrong password, please try again!"));
       }
 
+      await foundAdmin.populate({ path: "departments", select: "name" });
+
+      await foundAdmin.populate("employees");
+
       res.json({
         id: foundAdmin._id,
+        username: foundAdmin.firstname,
+        departments: foundAdmin.departments,
+        employees: foundAdmin.employees,
       });
     } else {
       return next(createHttpError(404, "No Admin found"));
     }
   } catch (error) {
     next(createHttpError(500, "Failed to log in"));
+  }
+}
+
+export async function addDepartment(req, res, next) {
+  const { newDepartmentId } = req.body;
+  const { id } = req.params;
+
+  try {
+    const foundAdmin = await Admin.findById(id);
+
+    if (foundAdmin) {
+      const options = {
+        new: true,
+        runValidators: true,
+      };
+
+      const updatedAdmin = await Admin.findByIdAndUpdate(id, { $push: { departments: newDepartmentId } }, options);
+
+      await updatedAdmin.populate("departments", {
+        name: 1,
+      });
+
+      await updatedAdmin.populate("employees");
+
+      res.status(201).json({
+        id: updatedAdmin._id,
+        departments: updatedAdmin.departments,
+        employees: foundAdmin.employees,
+      });
+    }
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      const errMessage = Object.values(err.errors)[0].message;
+      return next(createHttpError(400, errMessage));
+    }
+    next(createHttpError(500, "Failed to update admin"));
+  }
+}
+
+export async function addEmployee(req, res, next) {
+  const { newEmployeeId } = req.body;
+  const { id } = req.params;
+
+  try {
+    const foundAdmin = await Admin.findById(id);
+
+    if (foundAdmin) {
+      const options = {
+        new: true,
+        runValidators: true,
+      };
+
+      const updatedAdmin = await Admin.findByIdAndUpdate(id, { $push: { employees: newEmployeeId } }, options);
+
+      await updatedAdmin.populate("departments", {
+        name: 1,
+      });
+
+      await updatedAdmin.populate("employees");
+
+      res.status(201).json({
+        id: updatedAdmin._id,
+        departments: updatedAdmin.departments,
+        employees: updatedAdmin.employees,
+      });
+    }
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      const errMessage = Object.values(err.errors)[0].message;
+      return next(createHttpError(400, errMessage));
+    }
+    next(createHttpError(500, "Failed to update admin"));
   }
 }
