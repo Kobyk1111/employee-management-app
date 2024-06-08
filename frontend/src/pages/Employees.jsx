@@ -10,7 +10,7 @@ function Employees() {
 
   return (
     <div>
-      <button onClick={() => navigate("/employees/addEmployee")}>Add Employee</button>
+      <button onClick={() => navigate("/admin/employees/addEmployee")}>Add Employee</button>
 
       <table>
         <thead>
@@ -31,7 +31,7 @@ function Employees() {
                 <td>{employee.lastname}</td>
                 <td>{employee.email}</td>
                 <td>
-                  <NavLink to={`/employees/${employee._id}`}>View Details</NavLink>
+                  <NavLink to={`/admin/employees/${employee._id}`}>View Details</NavLink>
                 </td>
               </tr>
             );

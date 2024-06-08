@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 function AddEmployee() {
   const {
-    state: { loggedInAdmin, createEmployeeInputs },
+    state: { loggedInAdmin, createEmployeeInputs, updateEmployeeId },
     dispatch,
   } = useContext(DataContext);
 
@@ -27,9 +27,10 @@ function AddEmployee() {
         firstname: createEmployeeInputs.firstname,
         lastname: createEmployeeInputs.lastname,
         email: createEmployeeInputs.email,
+        password: updateEmployeeId ? createEmployeeInputs.password : "abcd1234A!",
         gender: createEmployeeInputs.gender,
         maritalStatus: createEmployeeInputs.maritalStatus,
-        employeeID: uuidv4(),
+        employeeID: updateEmployeeId ? createEmployeeInputs.employeeID : uuidv4(),
         jobTitle: createEmployeeInputs.jobTitle,
         employmentType: createEmployeeInputs.employmentType,
         employmentStatus: createEmployeeInputs.employmentStatus,
@@ -64,7 +65,10 @@ function AddEmployee() {
         },
       };
 
-      const response = await fetch("http://localhost:4001/employee", settings);
+      // If updateEmployeeId is a truthy value, then it means the function will be updating an employee instead of creating a new one
+      const response = updateEmployeeId
+        ? await fetch(`http://localhost:4001/employee/${updateEmployeeId}`, settings)
+        : await fetch("http://localhost:4001/employee", settings);
 
       if (response.ok) {
         const { id } = await response.json();
@@ -83,7 +87,8 @@ function AddEmployee() {
           const updatedAdmin = await response2.json();
 
           dispatch({ type: "SET_ADMIN_LOGIN", payload: updatedAdmin });
-          navigate("/employees");
+          dispatch({ type: "SET_EMPLOYEE_ID", payload: "" });
+          navigate("/admin/employees");
         } else {
           const { error } = await response2.json();
           throw new Error(error.message);
@@ -102,19 +107,31 @@ function AddEmployee() {
       <form onSubmit={handleSubmitEmployee}>
         <label>
           First Name
-          <input type="text" name="firstname" value={createEmployeeInputs.firstname} required onChange={handleChange} />
+          <input
+            type="text"
+            name="firstname"
+            value={createEmployeeInputs.firstname || ""}
+            required
+            onChange={handleChange}
+          />
         </label>
         <label>
           Last Name
-          <input type="text" name="lastname" value={createEmployeeInputs.lastname} required onChange={handleChange} />
+          <input
+            type="text"
+            name="lastname"
+            value={createEmployeeInputs.lastname || ""}
+            required
+            onChange={handleChange}
+          />
         </label>
         <label>
           Email
-          <input type="email" name="email" value={createEmployeeInputs.email} required onChange={handleChange} />
+          <input type="email" name="email" value={createEmployeeInputs.email || ""} required onChange={handleChange} />
         </label>
         <label>
           Gender
-          <select name="gender" value={createEmployeeInputs.gender} onChange={handleChange} required>
+          <select name="gender" value={createEmployeeInputs.gender || ""} onChange={handleChange} required>
             <option disabled value="">
               Choose Gender
             </option>
@@ -125,7 +142,12 @@ function AddEmployee() {
         </label>
         <label>
           Marital Status
-          <select name="maritalStatus" value={createEmployeeInputs.maritalStatus} onChange={handleChange} required>
+          <select
+            name="maritalStatus"
+            value={createEmployeeInputs.maritalStatus || ""}
+            onChange={handleChange}
+            required
+          >
             <option disabled value="">
               Choose Marital Status
             </option>
@@ -137,11 +159,22 @@ function AddEmployee() {
         </label>
         <label>
           Job Title
-          <input type="text" name="jobTitle" value={createEmployeeInputs.jobTitle} required onChange={handleChange} />
+          <input
+            type="text"
+            name="jobTitle"
+            value={createEmployeeInputs.jobTitle || ""}
+            required
+            onChange={handleChange}
+          />
         </label>
         <label>
           Employment Type
-          <select name="employmentType" value={createEmployeeInputs.employmentType} onChange={handleChange} required>
+          <select
+            name="employmentType"
+            value={createEmployeeInputs.employmentType || ""}
+            onChange={handleChange}
+            required
+          >
             <option disabled value="">
               Choose Employment Type
             </option>
@@ -155,7 +188,7 @@ function AddEmployee() {
           Employment Status
           <select
             name="employmentStatus"
-            value={createEmployeeInputs.employmentStatus}
+            value={createEmployeeInputs.employmentStatus || ""}
             onChange={handleChange}
             required
           >
@@ -172,7 +205,7 @@ function AddEmployee() {
           <input
             type="number"
             name="noOfChildren"
-            value={createEmployeeInputs.noOfChildren}
+            value={createEmployeeInputs.noOfChildren || ""}
             required
             onChange={handleChange}
           />
@@ -180,9 +213,9 @@ function AddEmployee() {
         <label>
           Phone Number
           <input
-            type="number"
+            type="text"
             name="phoneNumber"
-            value={createEmployeeInputs.phoneNumber}
+            value={createEmployeeInputs.phoneNumber || ""}
             required
             onChange={handleChange}
           />
@@ -192,7 +225,7 @@ function AddEmployee() {
           <input
             type="date"
             name="dateOfBirth"
-            value={createEmployeeInputs.dateOfBirth}
+            value={createEmployeeInputs.dateOfBirth || ""}
             required
             onChange={handleChange}
           />
@@ -202,33 +235,39 @@ function AddEmployee() {
           <input
             type="date"
             name="dateOfJoining"
-            value={createEmployeeInputs.dateOfJoining}
+            value={createEmployeeInputs.dateOfJoining || ""}
             required
             onChange={handleChange}
           />
         </label>
         <label>
           City
-          <input type="text" name="city" value={createEmployeeInputs.city} required onChange={handleChange} />
+          <input type="text" name="city" value={createEmployeeInputs.city || ""} required onChange={handleChange} />
         </label>
         <label>
           State
-          <input type="text" name="state" value={createEmployeeInputs.state} required onChange={handleChange} />
+          <input type="text" name="state" value={createEmployeeInputs.state || ""} required onChange={handleChange} />
         </label>
         <label>
           Country
-          <input type="text" name="country" value={createEmployeeInputs.country} required onChange={handleChange} />
+          <input
+            type="text"
+            name="country"
+            value={createEmployeeInputs.country || ""}
+            required
+            onChange={handleChange}
+          />
         </label>
         <label>
           Street
-          <input type="text" name="street" value={createEmployeeInputs.street} required onChange={handleChange} />
+          <input type="text" name="street" value={createEmployeeInputs.street || ""} required onChange={handleChange} />
         </label>
         <label>
           House Number
           <input
             type="number"
             name="houseNumber"
-            value={createEmployeeInputs.houseNumber}
+            value={createEmployeeInputs.houseNumber || ""}
             required
             onChange={handleChange}
           />
@@ -236,16 +275,16 @@ function AddEmployee() {
         <label>
           Postal Code
           <input
-            type="number"
+            type="text"
             name="postalCode"
-            value={createEmployeeInputs.postalCode}
+            value={createEmployeeInputs.postalCode || ""}
             required
             onChange={handleChange}
           />
         </label>
         <label>
           Department
-          <select name="department" value={createEmployeeInputs.department} onChange={handleChange} required>
+          <select name="department" value={createEmployeeInputs.department || ""} onChange={handleChange} required>
             <option disabled value="">
               Choose Department
             </option>
@@ -260,7 +299,7 @@ function AddEmployee() {
         </label>
         <label>
           Salary
-          <input type="text" name="salary" value={createEmployeeInputs.salary} required onChange={handleChange} />
+          <input type="text" name="salary" value={createEmployeeInputs.salary || ""} required onChange={handleChange} />
         </label>
         <h3>Bank Account Details</h3>
         <label>
@@ -268,7 +307,7 @@ function AddEmployee() {
           <input
             type="text"
             name="bankName"
-            value={createEmployeeInputs.bankAccountDetails.bankName}
+            value={createEmployeeInputs.bankAccountDetails?.bankName || ""}
             required
             onChange={handleBankInputs}
           />
@@ -278,7 +317,7 @@ function AddEmployee() {
           <input
             type="text"
             name="IBAN"
-            value={createEmployeeInputs.bankAccountDetails.IBAN}
+            value={createEmployeeInputs.bankAccountDetails?.IBAN || ""}
             required
             onChange={handleBankInputs}
           />
@@ -288,7 +327,7 @@ function AddEmployee() {
           <input
             type="text"
             name="BIC"
-            value={createEmployeeInputs.bankAccountDetails.BIC}
+            value={createEmployeeInputs.bankAccountDetails?.BIC || ""}
             required
             onChange={handleBankInputs}
           />
@@ -298,7 +337,7 @@ function AddEmployee() {
           <input
             type="number"
             name="taxIdentificationNumber"
-            value={createEmployeeInputs.taxIdentificationNumber}
+            value={createEmployeeInputs.taxIdentificationNumber || ""}
             required
             onChange={handleChange}
           />
@@ -308,7 +347,7 @@ function AddEmployee() {
           <input
             type="text"
             name="socialSecurityNumber"
-            value={createEmployeeInputs.socialSecurityNumber}
+            value={createEmployeeInputs.socialSecurityNumber || ""}
             required
             onChange={handleChange}
           />
@@ -318,7 +357,7 @@ function AddEmployee() {
           <input
             type="number"
             name="incomeTaxClass"
-            value={createEmployeeInputs.incomeTaxClass}
+            value={createEmployeeInputs.incomeTaxClass || ""}
             required
             onChange={handleChange}
           />
@@ -328,12 +367,12 @@ function AddEmployee() {
           <input
             type="text"
             name="healthInsuranceCompany"
-            value={createEmployeeInputs.healthInsuranceCompany}
+            value={createEmployeeInputs.healthInsuranceCompany || ""}
             required
             onChange={handleChange}
           />
         </label>
-        <button>Submit</button>
+        <button>{updateEmployeeId ? "Update Employee" : "Create Employee"} </button>
       </form>
     </div>
   );

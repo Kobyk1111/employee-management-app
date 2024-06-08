@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
 import { DataContext } from "../context/DataContext";
+import EachDepartment from "../components/EachDepartment";
 
 function Departments() {
   const [newDepartment, setNewDepartment] = useState("");
   const [entry, setEntry] = useState(1);
+  const [updateDepartmentId, setUpdateDepartmentId] = useState("");
   const {
     state: { loggedInAdmin },
     dispatch,
@@ -21,7 +23,10 @@ function Departments() {
         },
       };
 
-      const response = await fetch("http://localhost:4001/department", settings);
+      // If updateDepartmentId is a truthy value, then it means the function will be updating a department instead of creating a new one
+      const response = updateDepartmentId
+        ? await fetch(`http://localhost:4001/department/${updateDepartmentId}`, settings)
+        : await fetch("http://localhost:4001/department", settings);
 
       if (response.ok) {
         const { id } = await response.json();
@@ -40,6 +45,7 @@ function Departments() {
           const updatedAdmin = await response2.json();
           dispatch({ type: "SET_ADMIN_LOGIN", payload: updatedAdmin });
           setNewDepartment("");
+          setUpdateDepartmentId("");
         } else {
           const { error } = await response2.json();
           throw new Error(error.message);
@@ -66,7 +72,7 @@ function Departments() {
           onChange={(e) => setNewDepartment(e.target.value)}
           required
         />
-        <button>Add Department</button>
+        <button>{updateDepartmentId ? "Update Department" : "Add Department"} </button>
       </form>
 
       <form>
@@ -92,14 +98,13 @@ function Departments() {
         <tbody>
           {loggedInAdmin.departments?.map((department, index) => {
             return (
-              <tr key={department._id}>
-                <td>{index + 1}</td>
-                <td>{department.name}</td>
-                <td>
-                  <button>Edit</button>
-                  <button>Delete</button>
-                </td>
-              </tr>
+              <EachDepartment
+                key={department._id}
+                index={index}
+                department={department}
+                setNewDepartment={setNewDepartment}
+                setUpdateDepartmentId={setUpdateDepartmentId}
+              />
             );
           })}
         </tbody>

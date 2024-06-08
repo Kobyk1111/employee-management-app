@@ -10,16 +10,16 @@ function Navigation() {
         </div>
         <ul>
           <li>
-            <NavLink to="/">Dashboard</NavLink>
+            <NavLink to="/admin/dashboard">Dashboard</NavLink>
           </li>
           <li>
-            <NavLink to="/departments">Departments</NavLink>
+            <NavLink to="/admin/departments">Departments</NavLink>
           </li>
           <li>
-            <NavLink to="/employees">Employees</NavLink>
+            <NavLink to="/admin/employees">Employees</NavLink>
           </li>
           <li>
-            <NavLink to="/leave">Leave</NavLink>
+            <NavLink to="/admin/leave">Leave</NavLink>
           </li>
         </ul>
       </nav>

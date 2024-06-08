@@ -15,6 +15,10 @@ const employeeSchema = new Schema({
     required: true,
     unique: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   gender: {
     type: String,
     required: true,
@@ -48,8 +52,9 @@ const employeeSchema = new Schema({
     required: true,
   },
   phoneNumber: {
-    type: Number,
+    type: String,
     required: true,
+    unique: true,
   },
   dateOfBirth: {
     type: String,
@@ -80,7 +85,7 @@ const employeeSchema = new Schema({
     required: true,
   },
   postalCode: {
-    type: Number,
+    type: String,
     required: true,
   },
   department: {
@@ -93,16 +98,18 @@ const employeeSchema = new Schema({
   },
   bankAccountDetails: {
     bankName: { type: String, required: true },
-    IBAN: { type: String, required: true },
+    IBAN: { type: String, required: true, unique: true },
     BIC: { type: String, required: true },
   },
   taxIdentificationNumber: {
     type: Number,
     required: true,
+    unique: true,
   },
   socialSecurityNumber: {
     type: String,
     required: true,
+    unique: true,
   },
   incomeTaxClass: {
     type: Number,

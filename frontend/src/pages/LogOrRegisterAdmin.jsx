@@ -54,7 +54,8 @@ function LogOrRegisterAdmin() {
       if (response.ok) {
         const data = await response.json();
         dispatch({ type: "SET_ADMIN_LOGIN", payload: data });
-        navigate("/");
+        dispatch({ type: "SET_ERROR", payload: "" });
+        navigate("/admin/dashboard");
       } else {
         const { error } = await response.json();
         throw new Error(error.message);
@@ -63,12 +64,6 @@ function LogOrRegisterAdmin() {
       console.log(error.message);
       dispatch({ type: "SET_ERROR", payload: error.message });
     }
-
-    // setLoginInputs({
-    //   username: "",
-    //   email: "",
-    //   password: "",
-    // });
   }
 
   return (
@@ -87,7 +82,7 @@ function LogOrRegisterAdmin() {
               <input
                 type="text"
                 name="firstname"
-                value={logOrRegisterAdminInputs.firstname}
+                value={logOrRegisterAdminInputs.firstname || ""}
                 onChange={handleChange}
                 required
               />
@@ -97,7 +92,7 @@ function LogOrRegisterAdmin() {
               <input
                 type="text"
                 name="lastname"
-                value={logOrRegisterAdminInputs.lastname}
+                value={logOrRegisterAdminInputs.lastname || ""}
                 onChange={handleChange}
                 required
               />
@@ -106,14 +101,20 @@ function LogOrRegisterAdmin() {
         )}
         <label>
           Email
-          <input type="email" name="email" value={logOrRegisterAdminInputs.email} onChange={handleChange} required />
+          <input
+            type="email"
+            name="email"
+            value={logOrRegisterAdminInputs.email || ""}
+            onChange={handleChange}
+            required
+          />
         </label>
         <label>
           Password
           <input
             type="password"
             name="password"
-            value={logOrRegisterAdminInputs.password}
+            value={logOrRegisterAdminInputs.password || ""}
             onChange={handleChange}
             required
           />

@@ -5,12 +5,20 @@ import { DataContext } from "../context/DataContext";
 function EmployeeDetails() {
   const {
     state: { loggedInAdmin },
+    dispatch,
   } = useContext(DataContext);
   const { id } = useParams();
 
   const navigate = useNavigate();
 
   const foundEmployee = loggedInAdmin.employees.find((employee) => employee._id === id);
+
+  async function handleEditEmployee() {
+    // Since we already have the id in the foundEmployee variable above, we can use it in this function without looking for the employee again.
+    dispatch({ type: "SET_CREATE_EMPLOYEE_INPUTS", payload: foundEmployee });
+    dispatch({ type: "SET_EMPLOYEE_ID", payload: foundEmployee._id });
+    navigate("/admin/employees/addEmployee");
+  }
 
   return (
     <div>
@@ -37,7 +45,7 @@ function EmployeeDetails() {
       <p>Employment Type: {foundEmployee.employmentType}</p>
       <p>Employment Status: {foundEmployee.employmentStatus}</p>
       <p>Date of Joining: {foundEmployee.dateOfJoining}</p>
-      <p>Salary: ${foundEmployee.salary} per year</p>
+      <p>Salary: {foundEmployee.salary} per year</p>
 
       <h2>Bank Details</h2>
       <p>Bank Name: {foundEmployee.bankAccountDetails.bankName}</p>
@@ -49,9 +57,9 @@ function EmployeeDetails() {
       <p>Social Security Number: {foundEmployee.socialSecurityNumber}</p>
       <p>Income Tax Class: {foundEmployee.incomeTaxClass}</p>
       <p>Health Insurance Company: {foundEmployee.healthInsuranceCompany}</p>
-      <button>Edit Employee</button>
-      <button>Delete Employee</button>
-      <button onClick={() => navigate("/employees")}>Go back</button>
+      <button onClick={handleEditEmployee}>Edit Employee</button>
+      {/* <button>Delete Employee</button> */}
+      <button onClick={() => navigate("/admin/employees")}>Go back</button>
     </div>
   );
 }

@@ -19,6 +19,8 @@ app.use("/department", departmentRouter);
 
 app.use("/employee", employeeRouter);
 
+// app.use("/leave");
+
 const port = process.env.PORT || 4001;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
 

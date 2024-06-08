@@ -5,48 +5,14 @@ export const DataContext = createContext();
 
 const initialState = {
   loggedInAdmin: "",
+  loggedInEmployee: "",
   isToRegister: false,
-  logOrRegisterAdminInputs: {
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    departments: [],
-    employees: [],
-  },
+  logOrRegisterAdminInputs: {},
+  logEmployeeInputs: {},
   error: "",
-  createEmployeeInputs: {
-    firstname: "",
-    lastname: "",
-    email: "",
-    gender: "",
-    maritalStatus: "",
-    employeeID: "",
-    jobTitle: "",
-    employmentType: "",
-    employmentStatus: "",
-    noOfChildren: 0,
-    phoneNumber: "",
-    dateOfBirth: "",
-    dateOfJoining: "",
-    city: "",
-    state: "",
-    country: "",
-    street: "",
-    houseNumber: "",
-    postalCode: "",
-    department: "",
-    salary: "",
-    bankAccountDetails: {
-      bankName: "",
-      IBAN: "",
-      BIC: "",
-    },
-    taxIdentificationNumber: "",
-    socialSecurityNumber: "",
-    incomeTaxClass: "",
-    healthInsuranceCompany: "",
-  },
+  createEmployeeInputs: {},
+  updateEmployeeId: "",
+  leaveInputs: {},
 };
 
 function reducer(currentState, action) {
@@ -58,42 +24,40 @@ function reducer(currentState, action) {
       };
     }
 
+    case "EMPLOYEE_INPUTS_CHANGE": {
+      return {
+        ...currentState,
+        logEmployeeInputs: {
+          ...currentState.logEmployeeInputs,
+          ...action.payload,
+        },
+      };
+    }
+
+    case "LEAVE_INPUTS_CHANGE": {
+      return {
+        ...currentState,
+        leaveInputs: {
+          ...currentState.leaveInputs,
+          ...action.payload,
+        },
+      };
+    }
+
     case "SET_ADMIN_LOGIN": {
       return {
         ...currentState,
         loggedInAdmin: action.payload,
-        createEmployeeInputs: {
-          firstname: "",
-          lastname: "",
-          email: "",
-          gender: "",
-          maritalStatus: "",
-          employeeID: "",
-          jobTitle: "",
-          employmentType: "",
-          employmentStatus: "",
-          noOfChildren: 0,
-          phoneNumber: "",
-          dateOfBirth: "",
-          dateOfJoining: "",
-          city: "",
-          state: "",
-          country: "",
-          street: "",
-          houseNumber: "",
-          postalCode: "",
-          department: "",
-          salary: "",
-          bankAccountDetails: {
-            bankName: "",
-            IBAN: "",
-            BIC: "",
-          },
-          taxIdentificationNumber: "",
-          socialSecurityNumber: "",
-          incomeTaxClass: "",
-          healthInsuranceCompany: "",
-        },
+        logOrRegisterAdminInputs: {},
+        createEmployeeInputs: {},
+      };
+    }
+
+    case "SET_EMPLOYEE_LOGIN": {
+      return {
+        ...currentState,
+        loggedInEmployee: action.payload,
+        logEmployeeInputs: {},
       };
     }
 
@@ -121,6 +85,13 @@ function reducer(currentState, action) {
       return {
         ...currentState,
         isToRegister: action.payload,
+      };
+    }
+
+    case "SET_EMPLOYEE_ID": {
+      return {
+        ...currentState,
+        updateEmployeeId: action.payload,
       };
     }
 

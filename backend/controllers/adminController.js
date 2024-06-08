@@ -76,6 +76,12 @@ export async function addDepartment(req, res, next) {
         runValidators: true,
       };
 
+      // if the newDepartmentId is already in the database, it means we are updating the department instead of creating a new one. So it will filtered out first and then replaced with a new departmentId.
+      foundAdmin.departments = foundAdmin.departments.filter(
+        (department) => department._id.toString() !== newDepartmentId
+      );
+      await foundAdmin.save();
+
       const updatedAdmin = await Admin.findByIdAndUpdate(id, { $push: { departments: newDepartmentId } }, options);
 
       await updatedAdmin.populate("departments", {
@@ -87,8 +93,46 @@ export async function addDepartment(req, res, next) {
       res.status(201).json({
         id: updatedAdmin._id,
         departments: updatedAdmin.departments,
+        employees: updatedAdmin.employees,
+      });
+    } else {
+      return next(createHttpError(404, "No Admin found"));
+    }
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      const errMessage = Object.values(err.errors)[0].message;
+      return next(createHttpError(400, errMessage));
+    }
+    next(createHttpError(500, "Failed to update admin"));
+  }
+}
+
+export async function deleteDepartment(req, res, next) {
+  const { id, departmentId } = req.params;
+
+  try {
+    const foundAdmin = await Admin.findById(id);
+
+    if (foundAdmin) {
+      foundAdmin.departments = foundAdmin.departments.filter(
+        (department) => department._id.toString() !== departmentId
+      );
+
+      await foundAdmin.save();
+
+      await foundAdmin.populate("departments", {
+        name: 1,
+      });
+
+      await foundAdmin.populate("employees");
+
+      res.status(201).json({
+        id: foundAdmin._id,
+        departments: foundAdmin.departments,
         employees: foundAdmin.employees,
       });
+    } else {
+      return next(createHttpError(404, "No Admin found"));
     }
   } catch (err) {
     if (err.name === "ValidationError") {
@@ -111,6 +155,9 @@ export async function addEmployee(req, res, next) {
         new: true,
         runValidators: true,
       };
+
+      foundAdmin.employees = foundAdmin.employees.filter((employee) => employee._id.toString() !== newEmployeeId);
+      await foundAdmin.save();
 
       const updatedAdmin = await Admin.findByIdAndUpdate(id, { $push: { employees: newEmployeeId } }, options);
 

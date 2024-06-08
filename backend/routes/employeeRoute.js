@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { createEmployee } from "../controllers/employeeController.js";
+import { createEmployee, updateEmployee, loginEmployee } from "../controllers/employeeController.js";
 
 const router = Router();
 
 router.post("/", createEmployee);
+router.post("/login", loginEmployee);
+router.post("/:id", updateEmployee);
 
 export default router;
