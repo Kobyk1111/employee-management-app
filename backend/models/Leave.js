@@ -5,7 +5,7 @@ const leaveSchema = new Schema({
   employee: {
     type: Schema.Types.ObjectId,
     ref: "Employee",
-    required: true,
+    // required: true,
   },
   leaveType: {
     type: String,
@@ -46,6 +46,9 @@ const leaveSchema = new Schema({
   updatedAt: {
     type: Date,
     default: Date.now,
+  },
+  adminRemarks: {
+    type: String,
   },
 });
 

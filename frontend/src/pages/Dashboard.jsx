@@ -17,7 +17,7 @@ function Dashboard() {
 
   function handleLogout() {
     dispatch({ type: "SET_ADMIN_LOGIN", payload: "" });
-    navigate("/adminLogOrRegister");
+    navigate("/");
   }
 
   return (

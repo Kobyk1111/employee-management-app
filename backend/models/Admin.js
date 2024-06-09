@@ -37,6 +37,12 @@ const adminSchema = new Schema({
       ref: "Employee",
     },
   ],
+  // leave: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: "Leave",
+  //   },
+  // ],
 });
 
 const Admin = model("Admin", adminSchema);

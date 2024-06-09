@@ -13,6 +13,8 @@ const initialState = {
   createEmployeeInputs: {},
   updateEmployeeId: "",
   leaveInputs: {},
+  employeeLeaveRequests: [],
+  allEmployeesLeaveRequests: [],
 };
 
 function reducer(currentState, action) {
@@ -41,6 +43,13 @@ function reducer(currentState, action) {
           ...currentState.leaveInputs,
           ...action.payload,
         },
+      };
+    }
+
+    case "SET_LEAVE_INPUTS": {
+      return {
+        ...currentState,
+        leaveInputs: {},
       };
     }
 
@@ -92,6 +101,20 @@ function reducer(currentState, action) {
       return {
         ...currentState,
         updateEmployeeId: action.payload,
+      };
+    }
+
+    case "SET_EMPLOYEE_LEAVE_REQUESTS": {
+      return {
+        ...currentState,
+        employeeLeaveRequests: action.payload,
+      };
+    }
+
+    case "SET_ALL_EMPLOYEES_LEAVE_REQUESTS": {
+      return {
+        ...currentState,
+        allEmployeesLeaveRequests: action.payload,
       };
     }
 

@@ -36,7 +36,7 @@
 
 // export default App;
 
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import LogOrRegisterAdmin from "./pages/LogOrRegisterAdmin";
 import LoginEmployee from "./pages/LoginEmployee";
@@ -54,26 +54,21 @@ import EmployeeProfile from "./pages/EmployeeProfile";
 import EmployeeLayout from "./components/EmployeeLayout";
 import EmployeeLeave from "./pages/EmployeeLeave";
 import EmployeeLeaveForm from "./components/EmployeeLeaveForm";
+import LeaveDetails from "./components/LeaveDetails";
 
 function App() {
   const {
     state: { loggedInAdmin, loggedInEmployee },
   } = useContext(DataContext);
 
-  console.log(loggedInAdmin);
-  console.log(loggedInEmployee);
-
   return (
     <>
-      {/* {!loggedInAdmin && !loggedInEmployee ? (
-        <Home /> 
-      ) : ( */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/adminLogOrRegister" element={<LogOrRegisterAdmin />} />
         <Route path="/employeeLogin" element={<LoginEmployee />} />
 
-        {loggedInAdmin && (
+        {loggedInAdmin ? (
           <Route path="/admin" element={<Layout />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="departments" element={<Departments />} />
@@ -81,16 +76,21 @@ function App() {
             <Route path="employees/addEmployee" element={<AddEmployee />} />
             <Route path="employees/:id" element={<EmployeeDetails />} />
             <Route path="leave" element={<Leave />} />
+            <Route path="leave/:id" element={<LeaveDetails />} />
           </Route>
+        ) : (
+          <Route path="/admin/*" element={<Navigate to="/" />} />
         )}
 
-        {loggedInEmployee && (
+        {loggedInEmployee ? (
           <Route path="/employee" element={<EmployeeLayout />}>
             <Route path="dashboard" element={<EmployeeDashboard />} />
             <Route path="profile" element={<EmployeeProfile />} />
             <Route path="leave" element={<EmployeeLeave />} />
             <Route path="leave/addLeave" element={<EmployeeLeaveForm />} />
           </Route>
+        ) : (
+          <Route path="/employee/*" element={<Navigate to="/" />} />
         )}
       </Routes>
       {/* )} */}

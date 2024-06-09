@@ -13,6 +13,11 @@ body {
   background-color: rgb(131, 133, 136);
 }
 
+table {
+  border-collapse: collapse;
+}
+
 th, td, table {
   border: 1px solid black;
+  padding: 1rem;
 }
