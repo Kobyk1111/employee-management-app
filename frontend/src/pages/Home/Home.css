@@ -1,0 +1,33 @@
+.home-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.home-container h1 {
+  font-size: 6rem;
+  margin-bottom: 3rem;
+}
+
+.home-container h3 {
+  margin-top: 3rem;
+}
+
+.home-container .buttons-container {
+  margin-top: 2rem;
+  display: flex;
+  gap: 2rem;
+}
+
+.home-container ul li {
+  margin-bottom: 1rem;
+}
+
+.buttons-container button {
+  padding: 1rem 3rem;
+  font-size: 2rem;
+}
+

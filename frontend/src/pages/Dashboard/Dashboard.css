@@ -1,0 +1,11 @@
+.dashboard-data {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 3rem;
+  padding: 1rem 3rem;
+}
+
+.dashboard-data .info-container {
+  background-color: white;
+  padding: 2rem;
+}

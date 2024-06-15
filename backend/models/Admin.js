@@ -25,6 +25,19 @@ const adminSchema = new Schema({
     type: String,
     required: true,
   },
+  companyName: {
+    type: String,
+    required: true,
+  },
+  companyId: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    required: true,
+    default: "Admin",
+  },
   departments: [
     {
       type: Schema.Types.ObjectId,
@@ -37,12 +50,6 @@ const adminSchema = new Schema({
       ref: "Employee",
     },
   ],
-  // leave: [
-  //   {
-  //     type: Schema.Types.ObjectId,
-  //     ref: "Leave",
-  //   },
-  // ],
 });
 
 const Admin = model("Admin", adminSchema);

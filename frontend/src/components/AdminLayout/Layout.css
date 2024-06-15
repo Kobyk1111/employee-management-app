@@ -1,0 +1,35 @@
+.admin-layout-container {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  height: 100vh;
+}
+
+.admin-layout-container .navigation{
+  background-color: #412234;
+  color: white;
+}
+
+.admin-layout-container nav a {
+  width: 100%;
+  display: inline-block;
+}
+
+.admin-layout-container nav a.active{
+  color: #412234;
+  background-color: white;
+  width: 100%;
+}
+
+.admin-outlet {
+  display: grid;
+  grid-template-rows: 1fr 10fr;
+  height: 100vh;
+  gap: 3rem;
+}
+
+.admin-subnav {
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid gray; */
+  box-shadow: 0 0 4px rgb(173, 171, 171);
+}

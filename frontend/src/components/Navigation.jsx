@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 function Navigation() {
   return (
-    <div>
+    <div className="navigation">
       <nav>
         <div>
           <img src="" alt="" />

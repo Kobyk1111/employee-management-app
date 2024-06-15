@@ -7,6 +7,10 @@ const leaveSchema = new Schema({
     ref: "Employee",
     // required: true,
   },
+  companyId: {
+    type: String,
+    required: true,
+  },
   leaveType: {
     type: String,
     enum: [
@@ -33,6 +37,13 @@ const leaveSchema = new Schema({
   comment: {
     type: String,
     // required: true,
+  },
+  adminActionOn: {
+    type: Date,
+  },
+  adminComment: {
+    type: String,
+    default: "",
   },
   status: {
     type: String,

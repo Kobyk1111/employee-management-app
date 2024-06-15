@@ -33,8 +33,6 @@ export async function loginEmployee(req, res, next) {
   try {
     const foundEmployee = await Employee.findOne({ email });
 
-    console.log(foundEmployee);
-
     if (foundEmployee) {
       const matchPassword = await bcrypt.compare(password, foundEmployee.password);
 
@@ -45,6 +43,7 @@ export async function loginEmployee(req, res, next) {
       res.json({
         id: foundEmployee._id,
         username: foundEmployee.firstname,
+        companyId: foundEmployee.companyId,
       });
     } else {
       return next(createHttpError(404, "Wrong Email Address, no Employee found"));

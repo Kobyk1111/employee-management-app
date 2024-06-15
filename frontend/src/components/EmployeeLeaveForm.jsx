@@ -24,10 +24,12 @@ function LeaveForm() {
     try {
       const newLeaveRequest = {
         employee: loggedInEmployee.id,
+        companyId: loggedInEmployee.companyId,
         leaveType: leaveInputs.leaveType,
         startDate: leaveInputs.startDate,
         endDate: leaveInputs.endDate,
         comment: leaveInputs.comment,
+        adminActionOn: loggedInEmployee && "",
       };
 
       const settings = {

@@ -31,6 +31,7 @@ function AddEmployee() {
         gender: createEmployeeInputs.gender,
         maritalStatus: createEmployeeInputs.maritalStatus,
         employeeID: updateEmployeeId ? createEmployeeInputs.employeeID : uuidv4(),
+        companyId: loggedInAdmin.companyId,
         jobTitle: createEmployeeInputs.jobTitle,
         employmentType: createEmployeeInputs.employmentType,
         employmentStatus: createEmployeeInputs.employmentStatus,

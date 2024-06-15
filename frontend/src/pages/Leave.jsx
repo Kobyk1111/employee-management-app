@@ -4,18 +4,17 @@ import { NavLink } from "react-router-dom";
 
 function Leave() {
   const {
-    state: { allEmployeesLeaveRequests },
+    state: { allEmployeesLeaveRequests, loggedInAdmin },
     dispatch,
   } = useContext(DataContext);
 
   async function getAllEmployeesLeaveRequests() {
     try {
-      const response = await fetch(`http://localhost:4001/leave`);
+      const response = await fetch(`http://localhost:4001/leave/${loggedInAdmin.companyId}/getAllLeaves`);
 
       if (response.ok) {
         const data = await response.json();
         dispatch({ type: "SET_ALL_EMPLOYEES_LEAVE_REQUESTS", payload: data });
-        console.log(data);
       } else {
         const { error } = await response.json();
         throw new Error(error.message);
@@ -53,7 +52,9 @@ function Leave() {
                 </td>
                 <td>{leave.employee.email}</td>
                 <td>{leave.leaveType}</td>
-                <td>{leave.createdAt.slice(0, 10)}</td>
+                <td>
+                  {leave.createdAt.slice(0, 10)} at {leave.createdAt.slice(11, 16)}
+                </td>
                 <td>{leave.status}</td>
                 <td>
                   <NavLink to={`/admin/leave/${leave._id}`}>View Details</NavLink>

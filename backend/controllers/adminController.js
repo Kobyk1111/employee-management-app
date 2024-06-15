@@ -2,11 +2,34 @@ import Admin from "../models/Admin.js";
 import createHttpError from "http-errors";
 import bcrypt from "bcrypt";
 
-export async function createAdmin(req, res, next) {
-  try {
-    const foundAdmin = await Admin.find({});
+export async function getAllLeaveRequests(req, res, next) {
+  const { id } = req.params;
 
-    if (foundAdmin.length < 1) {
+  try {
+    const foundAdmin = await Admin.findById(id).populate("leaves");
+
+    if (foundAdmin) {
+      res.json({
+        leaves: foundAdmin.leaves,
+      });
+    } else {
+      return next(createHttpError(404, "No admin found"));
+    }
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      const errMessage = Object.values(err.errors)[0].message;
+      return next(createHttpError(400, errMessage));
+    }
+    next(createHttpError(500, "Failed to get all leaves"));
+  }
+}
+
+export async function createAdmin(req, res, next) {
+  const { companyName } = req.body;
+  try {
+    const foundAdmin = await Admin.findOne({ companyName });
+
+    if (!foundAdmin) {
       const { password } = req.body;
       const hashedPassword = await bcrypt.hash(password, 10);
       const admin = await Admin.create({ ...req.body, password: hashedPassword });
@@ -20,9 +43,15 @@ export async function createAdmin(req, res, next) {
         username: admin.firstname,
         departments: admin.departments,
         employees: admin.employees,
+        companyId: admin.companyId,
       });
     } else {
-      return next(createHttpError(401, "You cannot register as an admin"));
+      return next(
+        createHttpError(
+          409,
+          "An admin already exists for this organization. Only one admin is allowed per organization."
+        )
+      );
     }
   } catch (err) {
     if (err.name === "ValidationError") {
@@ -54,6 +83,7 @@ export async function loginAdmin(req, res, next) {
         username: foundAdmin.firstname,
         departments: foundAdmin.departments,
         employees: foundAdmin.employees,
+        companyId: foundAdmin.companyId,
       });
     } else {
       return next(createHttpError(404, "No Admin found"));
@@ -94,6 +124,7 @@ export async function addDepartment(req, res, next) {
         id: updatedAdmin._id,
         departments: updatedAdmin.departments,
         employees: updatedAdmin.employees,
+        companyId: updatedAdmin.companyId,
       });
     } else {
       return next(createHttpError(404, "No Admin found"));
@@ -130,6 +161,7 @@ export async function deleteDepartment(req, res, next) {
         id: foundAdmin._id,
         departments: foundAdmin.departments,
         employees: foundAdmin.employees,
+        companyId: foundAdmin.companyId,
       });
     } else {
       return next(createHttpError(404, "No Admin found"));
@@ -171,6 +203,35 @@ export async function addEmployee(req, res, next) {
         id: updatedAdmin._id,
         departments: updatedAdmin.departments,
         employees: updatedAdmin.employees,
+        companyId: updatedAdmin.companyId,
+      });
+    }
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      const errMessage = Object.values(err.errors)[0].message;
+      return next(createHttpError(400, errMessage));
+    }
+    next(createHttpError(500, "Failed to update admin"));
+  }
+}
+
+export async function addLeave(req, res, next) {
+  const { id } = req.params;
+  const { leaveId } = req.body;
+
+  try {
+    const foundAdmin = await Admin.findById(id);
+
+    if (foundAdmin) {
+      const options = {
+        new: true,
+        runValidators: true,
+      };
+
+      await Admin.findByIdAndUpdate(id, { leaves: leaveId }, options);
+
+      res.json({
+        message: "Leave has been created successfully",
       });
     }
   } catch (err) {

@@ -37,14 +37,14 @@
 // export default App;
 
 import { Route, Routes, Navigate } from "react-router-dom";
-import Home from "./pages/Home";
-import LogOrRegisterAdmin from "./pages/LogOrRegisterAdmin";
+import Home from "./pages/Home/Home";
+import LogOrRegisterAdmin from "./pages/LogOrRegisterAdmin/LogOrRegisterAdmin";
 import LoginEmployee from "./pages/LoginEmployee";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import { DataContext } from "./context/DataContext";
 import { useContext } from "react";
-import Layout from "./components/Layout";
+import Layout from "./components/AdminLayout/Layout";
 import Departments from "./pages/Departments";
 import Employees from "./pages/Employees";
 import Leave from "./pages/Leave";

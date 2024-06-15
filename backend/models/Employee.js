@@ -33,6 +33,10 @@ const employeeSchema = new Schema({
     required: true,
     unique: true,
   },
+  companyId: {
+    type: String,
+    required: true,
+  },
   jobTitle: {
     type: String,
     required: true,

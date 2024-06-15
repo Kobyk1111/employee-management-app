@@ -44,6 +44,7 @@ function EmployeeLeave() {
             <th>Comment</th>
             <th>Status</th>
             <th>Created At</th>
+            <th>Admin Action On</th>
             <th>Admin's Remark</th>
           </tr>
         </thead>
@@ -57,8 +58,14 @@ function EmployeeLeave() {
                 <td>{leave.endDate.slice(0, 10)}</td>
                 <td>{leave.comment}</td>
                 <td>{leave.status}</td>
-                <td>{leave.createdAt.slice(0, 10)}</td>
-                <td>{leave.adminRemark}</td>
+                <td>
+                  {leave.createdAt.slice(0, 10)} at {leave.createdAt.slice(11, 16)}
+                </td>
+                <td>
+                  {leave.adminActionOn &&
+                    `${leave.adminActionOn?.slice(0, 10)} at ${leave.adminActionOn?.slice(11, 16)}`}
+                </td>
+                <td>{leave.adminComment}</td>
               </tr>
             );
           })}
