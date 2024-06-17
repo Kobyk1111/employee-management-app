@@ -8,4 +8,6 @@
 .dashboard-data .info-container {
   background-color: white;
   padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  border-radius: 0.6rem;
 }

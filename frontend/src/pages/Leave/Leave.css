@@ -1,0 +1,46 @@
+.leave-page {
+  padding: 0 3rem;
+}
+
+.leave-page h2 {
+  margin-bottom: 2rem;
+}
+
+.leave-page .forms {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leave-page .search-form {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.leave-page .search-form button {
+  padding: 1rem 2rem;
+  font-size: 1.4rem;
+  border: none;
+  background-color: var(--button-color-accent);
+  color: white;
+  cursor: pointer;
+  margin: 2rem 0;
+  cursor: pointer;
+}
+
+.leave-page input {
+  padding: 0.8rem;
+}
+
+.leave-page .show-entries-form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 0;
+}
+
+.leave-page .show-entries-form select {
+  padding: 1rem 4rem 1rem 1rem;
+  font-size: 1.4rem;
+}

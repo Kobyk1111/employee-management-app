@@ -1,33 +1,28 @@
 .home-container {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr; */
+  min-height: 100vh;
 }
 
-.home-container h1 {
-  font-size: 6rem;
-  margin-bottom: 3rem;
-}
-
-.home-container h3 {
-  margin-top: 3rem;
-}
+/* .home-container .image-container {
+  background-image: url(../../assets/pawel-czerwinski-eGTFP1ryhOw-unsplash.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+} */
 
 .home-container .buttons-container {
   margin-top: 2rem;
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 2rem;
-}
-
-.home-container ul li {
-  margin-bottom: 1rem;
 }
 
 .buttons-container button {
   padding: 1rem 3rem;
   font-size: 2rem;
+  border: none;
+  cursor: pointer;
 }
 

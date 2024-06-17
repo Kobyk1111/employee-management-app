@@ -1,14 +1,15 @@
-.login-page {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 3rem;
+.employee-login-page {
   min-height: 100vh;
-  padding: 6rem;
 }
 
-.login-page form {
+.employee-login-page .employee-form-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.employee-login-page form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,11 +21,11 @@
   border-radius: 0.6rem;
 }
 
-.login-page form h2 {
+.employee-login-page form h2 {
   margin-bottom: 2rem;
 }
 
-.login-page label {
+.employee-login-page label {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
@@ -32,17 +33,17 @@
   width: 100%;
 }
 
-.login-page input {
+.employee-login-page input {
   padding: 1rem 1rem;
   font-size: 1.6rem;
   border: 1px solid rgb(219, 212, 212);
 }
 
-.login-page input:focus {
+.employee-login-page input:focus {
   outline: 1px solid var(--input-focus-color);
 }
 
-.login-page button {
+.employee-login-page button {
   padding: 1rem 2rem;
   font-size: 1.6rem;
   margin: 2rem 0;
@@ -53,17 +54,10 @@
   cursor: pointer;
 }
 
-.login-page button:hover {
-  background-color: var(--button-color-accent-hover);;
+.employee-login-page button:hover {
+  background-color: var(--button-color-accent-hover);
 }
 
-.login-page button:active {
+.employee-login-page button:active {
   background-color: var(--button-color-accent-active);
-}
-
-.login-page span {
-  cursor: pointer;
-  color: rgb(31, 108, 223);
-  font-size: 1.8rem;
-  text-decoration: underline;
 }

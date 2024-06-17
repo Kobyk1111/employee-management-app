@@ -1,0 +1,61 @@
+.employees-page {
+  padding: 0 3rem;
+}
+
+.employees-page .forms {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.employees-page .add-employee-button {
+  padding: 1rem 2rem;
+  font-size: 1.4rem;
+  border: none;
+  background-color: var(--button-color-accent);
+  color: white;
+  cursor: pointer;
+  margin: 2rem 0;
+  cursor: pointer;
+}
+
+.employees-page .add-employee-button:hover {
+  background-color: var(--button-color-hover);
+}
+
+.employees-page .add-employee-button:active {
+  background-color: var(--button-color-active);
+}
+
+.employees-page .search-form {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.employees-page .search-form button {
+  padding: 1rem 2rem;
+  font-size: 1.4rem;
+  border: none;
+  background-color: var(--button-color-accent);
+  color: white;
+  cursor: pointer;
+  margin: 2rem 0;
+  cursor: pointer;
+}
+
+.employees-page input {
+  padding: 0.8rem;
+}
+
+.employees-page .show-entries-form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 0;
+}
+
+.employees-page .show-entries-form select {
+  padding: 1rem 4rem 1rem 1rem;
+  font-size: 1.4rem;
+}

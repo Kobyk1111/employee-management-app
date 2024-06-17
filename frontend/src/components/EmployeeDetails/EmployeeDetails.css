@@ -1,0 +1,68 @@
+.employee-details-page {
+  padding: 0 3rem;
+  width: 60%;
+  /* height: 100vh; */
+  overflow: hidden;
+}
+
+.employee-details-page h2 {
+  margin: 5rem 0 1rem;
+}
+
+.employee-details-page h2:first-of-type {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.employee-details-page .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4rem;
+  /* border-bottom: 1px solid black; */
+}
+
+.employee-details-page .details-container {
+  overflow-y: scroll;
+  /* width: 100%; */
+  /* background-color: white; */
+  /* padding: 3rem; */
+  border-radius: 0.6rem;
+  height: 70vh;
+}
+
+.employee-details-page .details-container div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  /* width: 100%; */
+  border-bottom: 1px solid grey;
+}
+
+.employee-details-page p {
+  padding: 1.6rem 0;
+  /* border-bottom: 1px solid grey; */
+  /* display: flex; */
+  gap: 5rem;
+}
+
+.employee-details-page p span {
+  font-weight: bold;
+}
+
+.employee-details-page .buttons-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.employee-details-page button {
+  padding: 1rem 3rem;
+  /* margin: 2rem 2rem 2rem 0; */
+  font-size: 1.4rem;
+}
+
+.employee-details-page .edit-button {
+  background-color: var(--button-color-accent);
+  color: white;
+}

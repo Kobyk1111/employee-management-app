@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/DataContext";
 import "./Dashboard.css";
 
@@ -7,7 +7,10 @@ function Dashboard() {
   const {
     state: { loggedInAdmin, allEmployeesLeaveRequests },
     dispatch,
+    handleHTTPRequestWithToken,
   } = useContext(DataContext);
+
+  const navigate = useNavigate();
 
   const totalSalary = loggedInAdmin.employees.reduce((acc, curr) => {
     return acc + +curr.salary;
@@ -15,7 +18,12 @@ function Dashboard() {
 
   async function getAllEmployeesLeaveRequests() {
     try {
-      const response = await fetch(`http://localhost:4001/leave/${loggedInAdmin.companyId}/getAllLeaves`);
+      const response = await handleHTTPRequestWithToken(
+        `http://localhost:4001/leave/${loggedInAdmin.companyId}/getAllLeaves`,
+        {
+          credentials: "include",
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -26,6 +34,9 @@ function Dashboard() {
       }
     } catch (error) {
       alert(error.message);
+      if (error.message === "Authentication required. Please log in.") {
+        navigate("/adminLogOrRegister");
+      }
     }
   }
 
@@ -39,22 +50,22 @@ function Dashboard() {
         <div className="info-container">
           <h2>{loggedInAdmin.departments.length}</h2>
           <h3>Departments</h3>
-          <NavLink to="/admin/departments">Read more</NavLink>
+          <NavLink to="/admin/departments">View Details</NavLink>
         </div>
         <div className="info-container">
           <h2>{loggedInAdmin.employees.length}</h2>
           <h3>Employees</h3>
-          <NavLink to="/admin/employees">Read more</NavLink>
+          <NavLink to="/admin/employees">View Details</NavLink>
         </div>
         <div className="info-container">
           <h2>{allEmployeesLeaveRequests.length}</h2>
           <h3>Leave Requests</h3>
-          <NavLink to="/admin/leave">Read more</NavLink>
+          <NavLink to="/admin/leave">View Details</NavLink>
         </div>
         <div className="info-container">
           <h2>${totalSalary}</h2>
           <h3>Salary Paid</h3>
-          <NavLink>Read more</NavLink>
+          {/* <NavLink>Read more</NavLink> */}
         </div>
       </div>
     </div>

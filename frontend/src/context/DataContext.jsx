@@ -130,7 +130,36 @@ function reducer(currentState, action) {
 function DataContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  return <DataContext.Provider value={{ state, dispatch }}>{children}</DataContext.Provider>;
+  async function handleHTTPRequestWithToken(url, settings) {
+    const firstAccessResponse = await fetch(url, settings);
+
+    if (firstAccessResponse.ok) {
+      return firstAccessResponse;
+    } else {
+      const { error } = await firstAccessResponse.json();
+
+      if (error.status !== 401) {
+        return firstAccessResponse;
+      }
+
+      console.log("Expired token");
+
+      const refreshResponse = await fetch("http://localhost:4001/refresh-token", { credentials: "include" });
+
+      if (refreshResponse.ok) {
+        console.log("New cookies received");
+
+        const secondAccessResponse = await fetch(url, settings);
+        return secondAccessResponse;
+      } else {
+        return refreshResponse;
+      }
+    }
+  }
+
+  return (
+    <DataContext.Provider value={{ state, dispatch, handleHTTPRequestWithToken }}>{children}</DataContext.Provider>
+  );
 }
 
 export default DataContextProvider;

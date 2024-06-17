@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
   margin: 0;
@@ -8,20 +8,68 @@
 
 :root {
   font-size: 62.5%;
+  --primary-font-color: rgb(77, 77, 77);
+  --button-color-accent: #6f4897;
+  --button-color-accent-hover: #9363c4;
+  --button-color-accent-active: #4f326b;
+  --button-color-main: #412234;
+  --button-color-hover: #743d5d;
+  --button-color-active: #220e1a;
+  --button-color-edit-main: #218d21;
+  --button-color-edit-hover: #2eb42e;
+  --button-color-edit-active: #135013;
+  --button-color-delete-main: #a52222;
+  --button-color-delete-hover: #dd4949;
+  --button-color-delete-active: #5f1515;
+  --box-shadow-forms: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  --input-focus-color: #c9599a;
+  scroll-behavior: smooth;
 }
+
 
 body {
   font-size: 1.6rem;
-  background-color: #EAD7D7;
-  font-family: "Inter", sans-serif;
+  /* background-color: #EAD7D7; */
+  background-image: linear-gradient(to left, #f1bddb, #faeff5);
+  font-family: "Poppins", sans-serif;
+  color: var(--primary-font-color);
+}
+
+button {
+  font-family: "Poppins", sans-serif;
+  border-radius: 0.6rem;
+  border: none;
+}
+
+h2, h3, h4, th {
+  color: #444444;
 }
 
 table {
   border-collapse: collapse;
+  width: 100%;
+  background-color: white;
+  font-size: 1.4rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  border-radius: 0.6rem;
+  overflow: hidden;
 }
 
 th, td, table {
-  border: 1px solid black;
+  border: 1px solid rgb(212, 211, 211);
   padding: 1rem;
+}
+
+table tr:nth-child(2n) {
+  background-color: rgb(231, 231, 231);
+}
+
+input, select {
+  border-radius: 0.4rem;
+  border: 1px solid grey;
+}
+
+input:focus, select:focus, textarea:focus {
+  border: 1px solid var(--button-color-main);
 }
 

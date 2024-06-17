@@ -1,0 +1,40 @@
+.row .action {
+  padding: 0.8rem 2rem;
+  font-size: 1.6rem;
+  margin-left: 2rem;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.row .department-name {
+  width: 65%;
+}
+
+.row td:nth-child(1), .row td:nth-child(3) {
+  text-align: center;
+}
+
+.row .edit-button {
+  background-color: var(--button-color-edit-main);
+}
+
+.row .edit-button:hover {
+  background-color: var(--button-color-edit-hover);
+}
+
+.row .edit-button:active {
+  background-color: var(--button-color-edit-active);
+}
+
+.row .delete-button {
+  background-color: var(--button-color-delete-main);
+}
+
+.row .delete-button:hover {
+  background-color: var(--button-color-delete-hover);
+}
+
+.row .delete-button:active {
+  background-color: var(--button-color-delete-active);
+}

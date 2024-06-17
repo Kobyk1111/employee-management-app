@@ -5,7 +5,6 @@ import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
 import { v4 as uuidv4 } from "uuid";
 import "./LogOrRegisterAdmin.css";
-import image from "../../assets/pawel-czerwinski-eGTFP1ryhOw-unsplash.jpg";
 
 function LogOrRegisterAdmin() {
   const {
@@ -48,6 +47,7 @@ function LogOrRegisterAdmin() {
         "Content-Type": "application/json",
       },
       method: "POST",
+      credentials: "include",
     };
 
     try {
@@ -73,96 +73,94 @@ function LogOrRegisterAdmin() {
 
   return (
     <div className="login-page">
-      <div className="image-container">
-        <img src={image} alt="" />
-      </div>
-      {/* We create a dynamic form to handle both register and login scenarios */}
-      <div className="form-container">
-        <form onSubmit={handleSubmit}>
-          {isToRegister ? <h3>Register</h3> : <h3>Login</h3>}
-          {isToRegister && (
-            <>
-              <label>
-                First Name
-                <input
-                  type="text"
-                  name="firstname"
-                  value={logOrRegisterAdminInputs.firstname || ""}
-                  onChange={handleChange}
-                  required
-                />
-              </label>
-              <label>
-                Last Name
-                <input
-                  type="text"
-                  name="lastname"
-                  value={logOrRegisterAdminInputs.lastname || ""}
-                  onChange={handleChange}
-                  required
-                />
-              </label>
-              <label>
-                Company Name
-                <input
-                  type="text"
-                  name="companyName"
-                  value={logOrRegisterAdminInputs.companyName || ""}
-                  onChange={handleChange}
-                  required
-                />
-              </label>
-            </>
-          )}
-          <label>
-            Email
-            <input
-              type="email"
-              name="email"
-              value={logOrRegisterAdminInputs.email || ""}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label>
-            Password
-            <input
-              type="password"
-              name="password"
-              value={logOrRegisterAdminInputs.password || ""}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <button>{isToRegister ? "Register" : "Login"}</button>
-          {isToRegister ? (
-            <p>
-              Already have an account?{" "}
-              <span
-                onClick={() => {
-                  dispatch({ type: "SET_IS_TO_REGISTER", payload: false });
-                  dispatch({ type: "SET_ERROR", payload: "" });
-                }}
-              >
-                Login
-              </span>
-            </p>
-          ) : (
-            <p>
-              Don't have an account?{" "}
-              <span
-                onClick={() => {
-                  dispatch({ type: "SET_IS_TO_REGISTER", payload: true });
-                  dispatch({ type: "SET_ERROR", payload: "" });
-                }}
-              >
-                Register here
-              </span>
-            </p>
-          )}
-          {error && <p style={{ color: "red" }}>{error}</p>}
-        </form>
-      </div>
+      {/* Create a dynamic form to handle both register and login scenarios */}
+      <form onSubmit={handleSubmit}>
+        {isToRegister ? <h2>Admin Registration</h2> : <h2>Admin Login</h2>}
+        {isToRegister && (
+          <>
+            <label>
+              First Name
+              <input
+                type="text"
+                name="firstname"
+                value={logOrRegisterAdminInputs.firstname || ""}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <label>
+              Last Name
+              <input
+                type="text"
+                name="lastname"
+                value={logOrRegisterAdminInputs.lastname || ""}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <label>
+              Company Name
+              <input
+                type="text"
+                name="companyName"
+                value={logOrRegisterAdminInputs.companyName || ""}
+                onChange={handleChange}
+                required
+              />
+            </label>
+          </>
+        )}
+        <label>
+          Email
+          <input
+            type="email"
+            name="email"
+            value={logOrRegisterAdminInputs.email || ""}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          Password
+          <input
+            type="password"
+            name="password"
+            value={logOrRegisterAdminInputs.password || ""}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <button>{isToRegister ? "Register" : "Login"}</button>
+        {isToRegister ? (
+          <p>
+            Already have an account?{" "}
+            <span
+              onClick={() => {
+                dispatch({ type: "SET_IS_TO_REGISTER", payload: false });
+                dispatch({ type: "SET_ERROR", payload: "" });
+              }}
+            >
+              Login
+            </span>
+          </p>
+        ) : (
+          <p>
+            Don't have an account?{" "}
+            <span
+              onClick={() => {
+                dispatch({ type: "SET_IS_TO_REGISTER", payload: true });
+                dispatch({ type: "SET_ERROR", payload: "" });
+              }}
+            >
+              Register here
+            </span>
+          </p>
+        )}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+      </form>
+      <p>
+        Are you an employee? <span onClick={() => navigate("/employeeLogin")}>Click here to login</span>
+      </p>
     </div>
   );
 }

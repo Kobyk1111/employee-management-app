@@ -1,70 +1,66 @@
-// import { Route, Routes } from "react-router-dom";
-// import LogOrRegisterAdmin from "./pages/LogOrRegisterAdmin";
-// import Dashboard from "./pages/Dashboard";
-// import Departments from "./pages/Departments";
-// import Employees from "./pages/Employees";
-// import Leave from "./pages/Leave";
-// import { DataContext } from "./context/DataContext";
-// import { useContext } from "react";
-// import Layout from "./components/Layout";
-// import AddEmployee from "./components/AddEmployee";
-// import EmployeeDetails from "./components/EmployeeDetails";
-
-// function App() {
-//   const {
-//     state: { loggedInAdmin },
-//   } = useContext(DataContext);
-//   return (
-//     <>
-//       {!loggedInAdmin ? (
-//         <LogOrRegisterAdmin />
-//       ) : (
-//         <Routes>
-//           <Route path="/" element={<Layout />}>
-//             <Route index element={<Dashboard />} />
-//             <Route path="/departments" element={<Departments />} />
-//             <Route path="/employees" element={<Employees />} />
-//             <Route path="/employees/addEmployee" element={<AddEmployee />} />
-//             <Route path="/employees/:id" element={<EmployeeDetails />} />
-//             <Route path="/leave" element={<Leave />} />
-//           </Route>
-//         </Routes>
-//       )}
-//     </>
-//   );
-// }
-
-// export default App;
-
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate /* useNavigate */ } from "react-router-dom";
 import Home from "./pages/Home/Home";
+import LandingPage from "./pages/LandingPage/LandingPage";
 import LogOrRegisterAdmin from "./pages/LogOrRegisterAdmin/LogOrRegisterAdmin";
-import LoginEmployee from "./pages/LoginEmployee";
+import LoginEmployee from "./pages/LoginEmployee/LoginEmployee";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import EmployeeDashboard from "./pages/EmployeeDashboard";
+import EmployeeDashboard from "./pages/EmployeeDashboard/EmployeeDashboard";
 import { DataContext } from "./context/DataContext";
-import { useContext } from "react";
+import { useContext /* useEffect */ } from "react";
 import Layout from "./components/AdminLayout/Layout";
-import Departments from "./pages/Departments";
-import Employees from "./pages/Employees";
-import Leave from "./pages/Leave";
-import AddEmployee from "./components/AddEmployee";
-import EmployeeDetails from "./components/EmployeeDetails";
+import Departments from "./pages/Departments/Departments";
+import Employees from "./pages/Employees/Employees";
+import Leave from "./pages/Leave/Leave";
+import AddEmployee from "./components/AddEmployee/AddEmployee";
+import EmployeeDetails from "./components/EmployeeDetails/EmployeeDetails";
 import EmployeeProfile from "./pages/EmployeeProfile";
-import EmployeeLayout from "./components/EmployeeLayout";
-import EmployeeLeave from "./pages/EmployeeLeave";
-import EmployeeLeaveForm from "./components/EmployeeLeaveForm";
-import LeaveDetails from "./components/LeaveDetails";
+import EmployeeLayout from "./components/EmployeeLayout/EmployeeLayout";
+import EmployeeLeave from "./pages/EmployeeLeave/EmployeeLeave";
+import EmployeeLeaveForm from "./components/EmployeeLeaveForm/EmployeeLeaveForm";
+import LeaveDetails from "./components/LeaveDetails/LeaveDetails";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 function App() {
   const {
     state: { loggedInAdmin, loggedInEmployee },
+    // dispatch,
   } = useContext(DataContext);
+
+  // const navigate = useNavigate();
+
+  // The useEffect will keep the admin logged in so far as the admin is authenticated, even when the app is refreshed.
+  // useEffect(() => {
+  //   async function checkAuth() {
+  //     try {
+  //       const response = await fetch("http://localhost:4001/admin/check-auth", {
+  //         credentials: "include",
+  //       });
+
+  //       if (response.ok) {
+  //         const adminData = await response.json();
+  //         dispatch({ type: "SET_ADMIN_LOGIN", payload: adminData });
+  //         navigate("/admin/dashboard");
+  //       } else {
+  //         navigate("/adminLogOrRegister");
+  //         const { error } = await response.json();
+  //         throw new Error(error.message);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error checking auth:", error.message);
+  //       alert(error.message);
+  //       navigate("/adminLogOrRegister");
+  //     }
+  //   }
+
+  //   checkAuth();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/adminLogOrRegister" element={<LogOrRegisterAdmin />} />
         <Route path="/employeeLogin" element={<LoginEmployee />} />
 
@@ -92,6 +88,7 @@ function App() {
         ) : (
           <Route path="/employee/*" element={<Navigate to="/" />} />
         )}
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
       {/* )} */}
     </>
