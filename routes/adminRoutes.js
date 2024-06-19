@@ -8,21 +8,26 @@ import {
   deleteDepartment,
   addLeave,
   checkAuth,
+  updateAdminProfile,
+  updateAdminPassword,
 } from "../controllers/adminController.js";
 import authorizeRole from "../middlewares/authorizeRole.js";
 import { authenticateTokenOfAdmin } from "../middlewares/authenticateToken.js";
+import upload from "../middlewares/multerConfig.js";
 
 const router = Router();
 
 router.post("/register", createAdmin);
-router.post("/login", loginAdmin);
+router.post("/login", upload.single("profilePicture"), loginAdmin);
 
 router.use(authenticateTokenOfAdmin);
 router.use(authorizeRole("Admin"));
 router.get("/check-auth", checkAuth);
-router.get("/:id/getAllLeaves", getAllLeaveRequests);
-router.patch("/:id/addDepartment", addDepartment);
-router.patch("/:id/addEmployee", addEmployee);
+router.get("/getAllLeaves/:id", getAllLeaveRequests);
+router.post("/updatePassword/:id", updateAdminPassword);
+router.post("/updateProfile/:id", upload.single("profilePicture"), updateAdminProfile);
+router.patch("/addDepartment/:id", addDepartment);
+router.patch("/addEmployee/:id", addEmployee);
 router.patch("/:id/addLeave", addLeave);
 router.delete("/:id/deleteDepartment/:departmentId", deleteDepartment);
 

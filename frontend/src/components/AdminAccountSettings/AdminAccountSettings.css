@@ -1,0 +1,48 @@
+.admin-account-settings-page form {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 4rem;
+  width: 60%;
+  max-width: 700px;
+  gap: 2rem;
+  margin: 0 auto;
+  /* overflow-y: auto; */
+  border-radius: 0.6rem;
+}
+
+.admin-account-settings-page label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-weight: bold;
+}
+
+.admin-account-settings-page input {
+  border: 1px solid rgb(219, 219, 219);
+  padding: 1rem 1.2rem;
+  font-size: 1.4rem;
+  background-color: transparent;
+}
+
+.admin-account-settings-page .buttons-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.admin-account-settings-page button {
+  padding: 1rem 3rem;
+  border: none;
+  background-color: var(--button-color-accent);
+  color: white;
+  font-size: 1.4rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.admin-account-settings-page .cancel {
+  color: var(--button-color-accent);
+  background-color: transparent;
+  border: 1px solid var(--button-color-accent)
+}
+

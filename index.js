@@ -16,6 +16,7 @@ connect();
 
 const app = express();
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(
   cors({
@@ -23,12 +24,13 @@ app.use(
     origin: "http://localhost:5173",
   })
 );
-app.use(cookieParser());
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(express.static(path.join(__dirname, "frontend/dist")));
+
+// app.use(express.static(path.join(__dirname, "frontend/public")));
 
 app.use("/admin", adminRouter);
 app.use("/department", departmentRouter);

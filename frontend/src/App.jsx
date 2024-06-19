@@ -13,12 +13,17 @@ import Employees from "./pages/Employees/Employees";
 import Leave from "./pages/Leave/Leave";
 import AddEmployee from "./components/AddEmployee/AddEmployee";
 import EmployeeDetails from "./components/EmployeeDetails/EmployeeDetails";
-import EmployeeProfile from "./pages/EmployeeProfile";
 import EmployeeLayout from "./components/EmployeeLayout/EmployeeLayout";
 import EmployeeLeave from "./pages/EmployeeLeave/EmployeeLeave";
 import EmployeeLeaveForm from "./components/EmployeeLeaveForm/EmployeeLeaveForm";
 import LeaveDetails from "./components/LeaveDetails/LeaveDetails";
+import AdminProfileLayout from "./components/AdminProfileLayout/AdminProfileLayout";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
+import AdminPasswordSettings from "./components/AdminPasswordSettings/AdminPasswordSettings";
+import AdminAccountSettings from "./components/AdminAccountSettings/AdminAccountSettings";
+import EmployeeProfileLayout from "./components/EmployeeProfileLayout/EmployeeProfileLayout";
+import EmployeeAccountSettings from "./components/EmployeeAccountSettings/EmployeeAccountSettings";
+import EmployeePasswordSettings from "./components/EmployeePasswordSettings/EmployeePasswordSettings";
 
 function App() {
   const {
@@ -73,6 +78,10 @@ function App() {
             <Route path="employees/:id" element={<EmployeeDetails />} />
             <Route path="leave" element={<Leave />} />
             <Route path="leave/:id" element={<LeaveDetails />} />
+            <Route path="profile/account" element={<AdminProfileLayout />}>
+              <Route index element={<AdminAccountSettings />} />
+              <Route path="password" element={<AdminPasswordSettings />} />
+            </Route>
           </Route>
         ) : (
           <Route path="/admin/*" element={<Navigate to="/" />} />
@@ -81,9 +90,13 @@ function App() {
         {loggedInEmployee ? (
           <Route path="/employee" element={<EmployeeLayout />}>
             <Route path="dashboard" element={<EmployeeDashboard />} />
-            <Route path="profile" element={<EmployeeProfile />} />
+            {/* <Route path="profile" element={<EmployeeProfile />} /> */}
             <Route path="leave" element={<EmployeeLeave />} />
             <Route path="leave/addLeave" element={<EmployeeLeaveForm />} />
+            <Route path="profile/account" element={<EmployeeProfileLayout />}>
+              <Route index element={<EmployeeAccountSettings />} />
+              <Route path="password" element={<EmployeePasswordSettings />} />
+            </Route>
           </Route>
         ) : (
           <Route path="/employee/*" element={<Navigate to="/" />} />

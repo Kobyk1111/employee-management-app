@@ -61,7 +61,7 @@ function LeaveForm() {
 
   return (
     <div className="employee-leave-form-page">
-      <h2>Leave Form</h2>
+      {/* <h2>Leave Form</h2> */}
       <form onSubmit={handleSubmit}>
         <label>
           Leave Type
@@ -81,14 +81,16 @@ function LeaveForm() {
           </select>
         </label>
 
-        <label>
-          Start Date
-          <input type="date" name="startDate" value={leaveInputs.startDate || ""} onChange={handleChange} required />
-        </label>
-        <label>
-          End Date
-          <input type="date" name="endDate" value={leaveInputs.endDate || ""} onChange={handleChange} required />
-        </label>
+        <div className="dates-container">
+          <label>
+            Start Date
+            <input type="date" name="startDate" value={leaveInputs.startDate || ""} onChange={handleChange} required />
+          </label>
+          <label>
+            End Date
+            <input type="date" name="endDate" value={leaveInputs.endDate || ""} onChange={handleChange} required />
+          </label>
+        </div>
         <label>
           Comment (Optional)
           <textarea name="comment" rows={7} value={leaveInputs.comment || ""} onChange={handleChange} />

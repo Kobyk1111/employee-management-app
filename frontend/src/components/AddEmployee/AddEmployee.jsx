@@ -10,6 +10,7 @@ function AddEmployee() {
     dispatch,
     handleHTTPRequestWithToken,
   } = useContext(DataContext);
+  // const [profilePicture, setProfilePicture] = useState("")
 
   const navigate = useNavigate();
 
@@ -25,6 +26,9 @@ function AddEmployee() {
     e.preventDefault();
 
     try {
+      // const formData = new FormData()
+      // formData.append("profilePicture", profilePicture)
+
       const newEmployee = {
         firstname: createEmployeeInputs.firstname,
         lastname: createEmployeeInputs.lastname,
@@ -88,7 +92,7 @@ function AddEmployee() {
         };
 
         const response2 = await handleHTTPRequestWithToken(
-          `http://localhost:4001/admin/${loggedInAdmin.id}/addEmployee`,
+          `http://localhost:4001/admin/addEmployee/${loggedInAdmin.id}/`,
           settings2
         );
 
@@ -113,11 +117,9 @@ function AddEmployee() {
     }
   }
 
-  console.log(loggedInAdmin.companyName);
-
   return (
     <div className="add-employee-page">
-      <h2>{updateEmployeeId ? "Update Employee" : "Add Employee"}</h2>
+      {/* <h2>{updateEmployeeId ? "Update Employee" : "Create Employee"}</h2> */}
       <form onSubmit={handleSubmitEmployee}>
         <label>
           First Name

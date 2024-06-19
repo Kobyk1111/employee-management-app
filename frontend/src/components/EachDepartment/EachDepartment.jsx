@@ -6,47 +6,47 @@ import "./EachDepartment.css";
 function EachDepartment({ department, index, setNewDepartment, setUpdateDepartmentId }) {
   const {
     state: { loggedInAdmin },
-    dispatch,
-    handleHTTPRequestWithToken,
+    // dispatch,
+    // handleHTTPRequestWithToken,
   } = useContext(DataContext);
 
-  async function handleDelete(id) {
-    if (confirm(`Are you sure you want to delete ${department.name}`)) {
-      try {
-        const response = await handleHTTPRequestWithToken(`http://localhost:4001/department/${id}`, {
-          method: "DELETE",
-          credentials: "include",
-        });
+  // async function handleDelete(id) {
+  //   if (confirm(`Are you sure you want to delete ${department.name}`)) {
+  //     try {
+  //       const response = await handleHTTPRequestWithToken(`http://localhost:4001/department/${id}`, {
+  //         method: "DELETE",
+  //         credentials: "include",
+  //       });
 
-        if (response.ok) {
-          const { id, message } = await response.json();
+  //       if (response.ok) {
+  //         const { id, message } = await response.json();
 
-          alert(message);
+  //         alert(message);
 
-          const response2 = await handleHTTPRequestWithToken(
-            `http://localhost:4001/admin/${loggedInAdmin.id}/deleteDepartment/${id}`,
-            {
-              method: "DELETE",
-              credentials: "include",
-            }
-          );
+  //         const response2 = await handleHTTPRequestWithToken(
+  //           `http://localhost:4001/admin/${loggedInAdmin.id}/deleteDepartment/${id}`,
+  //           {
+  //             method: "DELETE",
+  //             credentials: "include",
+  //           }
+  //         );
 
-          if (response2.ok) {
-            const data = await response2.json();
-            dispatch({ type: "SET_ADMIN_LOGIN", payload: data });
-          } else {
-            const { error } = await response2.json();
-            throw new Error(error.message);
-          }
-        } else {
-          const { error } = await response.json();
-          throw new Error(error.message);
-        }
-      } catch (error) {
-        alert(error.message);
-      }
-    }
-  }
+  //         if (response2.ok) {
+  //           const data = await response2.json();
+  //           dispatch({ type: "SET_ADMIN_LOGIN", payload: data });
+  //         } else {
+  //           const { error } = await response2.json();
+  //           throw new Error(error.message);
+  //         }
+  //       } else {
+  //         const { error } = await response.json();
+  //         throw new Error(error.message);
+  //       }
+  //     } catch (error) {
+  //       alert(error.message);
+  //     }
+  //   }
+  // }
 
   async function handleUpdate(id) {
     const foundDepartment = loggedInAdmin.departments.find((department) => department._id === id);
@@ -63,9 +63,9 @@ function EachDepartment({ department, index, setNewDepartment, setUpdateDepartme
         <button className="action edit-button" onClick={() => handleUpdate(department._id)}>
           Edit
         </button>
-        <button className="action delete-button" onClick={() => handleDelete(department._id)}>
+        {/* <button className="action delete-button" onClick={() => handleDelete(department._id)}>
           Delete
-        </button>
+        </button> */}
       </td>
     </tr>
   );

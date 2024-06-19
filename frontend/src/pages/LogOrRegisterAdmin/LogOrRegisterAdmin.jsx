@@ -12,6 +12,8 @@ function LogOrRegisterAdmin() {
     dispatch,
   } = useContext(DataContext);
 
+  // const [profilePicture, setProfilePicture] = useState("");
+
   // initialize useNavigate hook
   const navigate = useNavigate();
 
@@ -19,6 +21,11 @@ function LogOrRegisterAdmin() {
   function handleChange(e) {
     dispatch({ type: "ADMIN_INPUTS_CHANGE", payload: { [e.target.name]: e.target.value } });
   }
+
+  // function to handle file input change
+  // function handleFileChange(e) {
+  //   setProfilePicture(e.target.files[0]);
+  // }
 
   // function to run when the form is submitted
   async function handleSubmit(e) {
@@ -161,6 +168,9 @@ function LogOrRegisterAdmin() {
       <p>
         Are you an employee? <span onClick={() => navigate("/employeeLogin")}>Click here to login</span>
       </p>
+      <h3 onClick={() => navigate("/")} style={{ color: "#6f4897", cursor: "pointer" }}>
+        Go to Landing Page
+      </h3>
     </div>
   );
 }

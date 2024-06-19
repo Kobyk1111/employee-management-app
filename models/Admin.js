@@ -2,6 +2,10 @@ import { Schema, model } from "mongoose";
 import validator from "validator";
 
 const adminSchema = new Schema({
+  profilePicture: {
+    type: String,
+    default: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/320px-User-avatar.svg.png",
+  },
   firstname: {
     type: String,
     required: [true, "First name is required"],

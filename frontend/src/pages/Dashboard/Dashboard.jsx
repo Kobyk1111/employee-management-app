@@ -16,10 +16,12 @@ function Dashboard() {
     return acc + +curr.salary;
   }, 0);
 
+  const pendingLeaves = allEmployeesLeaveRequests.filter((leave) => leave.status === "Pending");
+
   async function getAllEmployeesLeaveRequests() {
     try {
       const response = await handleHTTPRequestWithToken(
-        `http://localhost:4001/leave/${loggedInAdmin.companyId}/getAllLeaves`,
+        `http://localhost:4001/leave/getAllLeaves/${loggedInAdmin.companyId}`,
         {
           credentials: "include",
         }
@@ -45,26 +47,27 @@ function Dashboard() {
   }, []);
 
   return (
-    <div>
+    <div className="admin-dashboard">
+      <h2 className="welcome">Welcome, {loggedInAdmin.firstname}</h2>
       <div className="dashboard-data">
-        <div className="info-container">
+        <div className="info-container one">
           <h2>{loggedInAdmin.departments.length}</h2>
-          <h3>Departments</h3>
+          <h4>Departments</h4>
           <NavLink to="/admin/departments">View Details</NavLink>
         </div>
-        <div className="info-container">
+        <div className="info-container two">
           <h2>{loggedInAdmin.employees.length}</h2>
-          <h3>Employees</h3>
+          <h4>Employees</h4>
           <NavLink to="/admin/employees">View Details</NavLink>
         </div>
-        <div className="info-container">
-          <h2>{allEmployeesLeaveRequests.length}</h2>
-          <h3>Leave Requests</h3>
+        <div className="info-container three">
+          <h2>{pendingLeaves.length}</h2>
+          <h4>Pending Leave Requests</h4>
           <NavLink to="/admin/leave">View Details</NavLink>
         </div>
-        <div className="info-container">
+        <div className="info-container four">
           <h2>${totalSalary}</h2>
-          <h3>Salary Paid</h3>
+          <h4>Salary Per Year</h4>
           {/* <NavLink>Read more</NavLink> */}
         </div>
       </div>

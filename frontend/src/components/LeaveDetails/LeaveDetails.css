@@ -1,8 +1,11 @@
 .leave-details-page {
-  padding: 0 3rem;
+  padding: 1rem 3rem;
   width: 60%;
   overflow-y: auto;
   height: 80vh;
+  background-color: white;
+  margin: 0 auto;
+  border-radius: 0.6rem;
 }
 
 .leave-details-page h2 {
@@ -39,12 +42,12 @@
 
 .leave-details-page .set-action-button:hover,
 .leave-details-page form button:hover {
-  background-color: var(--button-color-hover);
+  background-color: var(--button-color-accent-hover);
 }
 
 .leave-details-page .set-action-button:active,
 .leave-details-page form button:active {
-  background-color: var(--button-color-active);
+  background-color: var(--button-color-accent-active);
 }
 
 .leave-details-page form select, 

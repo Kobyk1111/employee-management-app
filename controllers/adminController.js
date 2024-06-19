@@ -13,11 +13,15 @@ export async function checkAuth(req, res, next) {
     res.json({
       id: admin._id,
       username: admin.firstname,
+      firstname: admin.firstname,
+      lastname: admin.lastname,
+      email: admin.email,
       departments: admin.departments,
       employees: admin.employees,
       companyId: admin.companyId,
       companyName: admin.companyName,
       role: admin.role,
+      profilePicture: admin.profilePicture,
     });
   } catch (error) {
     next(createHttpError(500, "Auth failed. Please login"));
@@ -86,11 +90,15 @@ export async function createAdmin(req, res, next) {
       res.status(201).json({
         id: admin._id,
         username: admin.firstname,
+        firstname: admin.firstname,
+        lastname: admin.lastname,
+        email: admin.email,
         departments: admin.departments,
         employees: admin.employees,
         companyId: admin.companyId,
         companyName: admin.companyName,
         role: admin.role,
+        profilePicture: admin.profilePicture,
       });
     } else {
       return next(
@@ -132,8 +140,8 @@ export async function loginAdmin(req, res, next) {
 
       await foundAdmin.populate("employees");
 
-      const accessToken = jwt.sign({ id: foundAdmin.id }, process.env.JWT_SECRET_KEY, { expiresIn: "10s" });
-      const refreshToken = jwt.sign({ id: foundAdmin.id }, process.env.JWT_SECRET_KEY, { expiresIn: "1m" });
+      const accessToken = jwt.sign({ id: foundAdmin.id }, process.env.JWT_SECRET_KEY, { expiresIn: "15m" });
+      const refreshToken = jwt.sign({ id: foundAdmin.id }, process.env.JWT_SECRET_KEY, { expiresIn: "1d" });
 
       const cookieOptions = {
         httpOnly: true,
@@ -143,14 +151,12 @@ export async function loginAdmin(req, res, next) {
 
       const accessOptions = {
         ...cookieOptions,
-        // maxAge: 1000 * 60 * 15,
-        maxAge: 1000 * 10,
+        maxAge: 1000 * 60 * 15,
       };
 
       const refreshOptions = {
         ...cookieOptions,
-        // maxAge: 1000 * 60 * 60 * 24,
-        maxAge: 1000 * 60,
+        maxAge: 1000 * 60 * 60 * 24,
         // path: "/refresh-token",
       };
 
@@ -160,11 +166,15 @@ export async function loginAdmin(req, res, next) {
       res.json({
         id: foundAdmin._id,
         username: foundAdmin.firstname,
+        firstname: foundAdmin.firstname,
+        lastname: foundAdmin.lastname,
+        email: foundAdmin.email,
         departments: foundAdmin.departments,
         employees: foundAdmin.employees,
         companyId: foundAdmin.companyId,
         companyName: foundAdmin.companyName,
         role: foundAdmin.role,
+        profilePicture: foundAdmin.profilePicture,
       });
     } else {
       return next(createHttpError(404, "No Admin found"));
@@ -203,9 +213,16 @@ export async function addDepartment(req, res, next) {
 
       res.status(201).json({
         id: updatedAdmin._id,
+        username: updatedAdmin.firstname,
+        firstname: updatedAdmin.firstname,
+        lastname: updatedAdmin.lastname,
+        email: updatedAdmin.email,
         departments: updatedAdmin.departments,
         employees: updatedAdmin.employees,
         companyId: updatedAdmin.companyId,
+        companyName: updatedAdmin.companyName,
+        role: updatedAdmin.role,
+        profilePicture: updatedAdmin.profilePicture,
       });
     } else {
       return next(createHttpError(404, "No Admin found"));
@@ -240,9 +257,16 @@ export async function deleteDepartment(req, res, next) {
 
       res.status(201).json({
         id: foundAdmin._id,
+        username: foundAdmin.firstname,
+        firstname: foundAdmin.firstname,
+        lastname: foundAdmin.lastname,
+        email: foundAdmin.email,
         departments: foundAdmin.departments,
         employees: foundAdmin.employees,
         companyId: foundAdmin.companyId,
+        companyName: foundAdmin.companyName,
+        role: foundAdmin.role,
+        profilePicture: foundAdmin.profilePicture,
       });
     } else {
       return next(createHttpError(404, "No Admin found"));
@@ -282,9 +306,16 @@ export async function addEmployee(req, res, next) {
 
       res.status(201).json({
         id: updatedAdmin._id,
+        username: updatedAdmin.firstname,
+        firstname: updatedAdmin.firstname,
+        lastname: updatedAdmin.lastname,
+        email: updatedAdmin.email,
         departments: updatedAdmin.departments,
         employees: updatedAdmin.employees,
         companyId: updatedAdmin.companyId,
+        companyName: updatedAdmin.companyName,
+        role: updatedAdmin.role,
+        profilePicture: updatedAdmin.profilePicture,
       });
     }
   } catch (err) {
@@ -321,5 +352,109 @@ export async function addLeave(req, res, next) {
       return next(createHttpError(400, errMessage));
     }
     next(createHttpError(500, "Failed to update admin"));
+  }
+}
+
+export async function updateAdminProfile(req, res, next) {
+  const { id } = req.params;
+  const { firstname, lastname, email, companyName } = req.body;
+
+  try {
+    const foundAdmin = await Admin.findById(id);
+
+    if (foundAdmin) {
+      const updateData = { firstname, lastname, email, companyName };
+
+      if (req.file) {
+        updateData.profilePicture = req.file.filename;
+      }
+
+      const options = {
+        new: true,
+        runValidators: true,
+      };
+
+      const updatedAdmin = await Admin.findByIdAndUpdate(id, updateData, options);
+
+      await updatedAdmin.populate({ path: "departments", select: "name" });
+
+      await updatedAdmin.populate("employees");
+
+      res.json({
+        id: updatedAdmin._id,
+        username: updatedAdmin.firstname,
+        firstname: updatedAdmin.firstname,
+        lastname: updatedAdmin.lastname,
+        email: updatedAdmin.email,
+        departments: updatedAdmin.departments,
+        employees: updatedAdmin.employees,
+        companyId: updatedAdmin.companyId,
+        companyName: updatedAdmin.companyName,
+        role: updatedAdmin.role,
+        profilePicture: updatedAdmin.profilePicture,
+        message: "Profile has been updated successfully",
+      });
+    } else {
+      return next(createHttpError(404, "No Admin found"));
+    }
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      const errMessage = Object.values(err.errors)[0].message;
+      return next(createHttpError(400, errMessage));
+    }
+    next(createHttpError(500, "Failed to update admin"));
+  }
+}
+
+export async function updateAdminPassword(req, res, next) {
+  const { id } = req.params;
+  const { oldPassword, newPassword } = req.body;
+
+  try {
+    const foundAdmin = await Admin.findById(id);
+
+    if (foundAdmin) {
+      const checkPasswords = await bcrypt.compare(oldPassword, foundAdmin.password);
+
+      if (!checkPasswords) {
+        return next(createHttpError(400, "Wrong old password, please try again!"));
+      }
+
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      const options = {
+        new: true,
+        runValidators: true,
+      };
+
+      const updatedAdmin = await Admin.findByIdAndUpdate(id, { password: hashedPassword }, options);
+
+      await updatedAdmin.populate({ path: "departments", select: "name" });
+
+      await updatedAdmin.populate("employees");
+
+      res.json({
+        id: updatedAdmin._id,
+        username: updatedAdmin.firstname,
+        firstname: updatedAdmin.firstname,
+        lastname: updatedAdmin.lastname,
+        email: updatedAdmin.email,
+        departments: updatedAdmin.departments,
+        employees: updatedAdmin.employees,
+        companyId: updatedAdmin.companyId,
+        companyName: updatedAdmin.companyName,
+        role: updatedAdmin.role,
+        profilePicture: updatedAdmin.profilePicture,
+        message: "Password has been updated successfully",
+      });
+    } else {
+      return next(createHttpError(404, "No Admin found to update password"));
+    }
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      const errMessage = Object.values(err.errors)[0].message;
+      return next(createHttpError(400, errMessage));
+    }
+    next(createHttpError(500, "Failed to update admin's password"));
   }
 }

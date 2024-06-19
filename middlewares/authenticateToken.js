@@ -67,13 +67,12 @@ export async function authenticateTokenOfAdmin(req, res, next) {
         throw new Error("Admin not found");
       }
 
-      const newAccessToken = jwt.sign({ id: foundAdmin._id }, process.env.JWT_SECRET_KEY, { expiresIn: "10s" });
+      const newAccessToken = jwt.sign({ id: foundAdmin._id }, process.env.JWT_SECRET_KEY, { expiresIn: "15m" });
       res.cookie("adminAccessCookie", newAccessToken, {
         httpOnly: true,
         secure: true,
         sameSite: "Strict",
-        // maxAge: 1000 * 60 * 15,
-        maxAge: 1000 * 10,
+        maxAge: 1000 * 60 * 15,
       });
 
       console.log("New access token created");

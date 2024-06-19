@@ -39,50 +39,54 @@ function EmployeeLeave() {
       <h2>Leave Requests</h2>
       <button onClick={() => navigate("/employee/leave/addLeave")}>Request Leave</button>
 
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Leave Type</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Comment</th>
-            <th>Status</th>
-            <th>Created At</th>
-            <th>Admin Action On</th>
-            <th>Admin's Remark</th>
-          </tr>
-        </thead>
-        <tbody>
-          {employeeLeaveRequests?.map((leave, index) => {
-            return (
-              <tr key={leave._id}>
-                <td>{index + 1}</td>
-                <td>{leave.leaveType}</td>
-                <td>{leave.startDate.slice(0, 10)}</td>
-                <td>{leave.endDate.slice(0, 10)}</td>
-                <td>{leave.comment}</td>
-                <td
-                  style={{
-                    color: leave.status === "Pending" ? "blue" : leave.status === "Rejected" ? "red" : "green",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {leave.status}
-                </td>
-                <td>
-                  {leave.createdAt.slice(0, 10)} at {leave.createdAt.slice(11, 16)}
-                </td>
-                <td>
-                  {leave.adminActionOn &&
-                    `${leave.adminActionOn?.slice(0, 10)} at ${leave.adminActionOn?.slice(11, 16)}`}
-                </td>
-                <td>{leave.adminComment}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      {employeeLeaveRequests.length > 0 ? (
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Leave Type</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Comment</th>
+              <th>Status</th>
+              <th>Created At</th>
+              <th>Admin Action On</th>
+              <th>Admin's Remark</th>
+            </tr>
+          </thead>
+          <tbody>
+            {employeeLeaveRequests?.map((leave, index) => {
+              return (
+                <tr key={leave._id}>
+                  <td>{index + 1}</td>
+                  <td>{leave.leaveType}</td>
+                  <td>{leave.startDate.slice(0, 10)}</td>
+                  <td>{leave.endDate.slice(0, 10)}</td>
+                  <td>{leave.comment}</td>
+                  <td
+                    style={{
+                      color: leave.status === "Pending" ? "blue" : leave.status === "Rejected" ? "red" : "green",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {leave.status}
+                  </td>
+                  <td>
+                    {leave.createdAt.slice(0, 10)} at {leave.createdAt.slice(11, 16)}
+                  </td>
+                  <td>
+                    {leave.adminActionOn &&
+                      `${leave.adminActionOn?.slice(0, 10)} at ${leave.adminActionOn?.slice(11, 16)}`}
+                  </td>
+                  <td>{leave.adminComment}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      ) : (
+        <h4>You have no leave request. Click on request leave button to create new leave request</h4>
+      )}
     </div>
   );
 }

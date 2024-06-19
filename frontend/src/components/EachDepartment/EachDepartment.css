@@ -17,6 +17,7 @@
 
 .row .edit-button {
   background-color: var(--button-color-edit-main);
+  font-size: 1.2rem;
 }
 
 .row .edit-button:hover {
@@ -27,7 +28,7 @@
   background-color: var(--button-color-edit-active);
 }
 
-.row .delete-button {
+/* .row .delete-button {
   background-color: var(--button-color-delete-main);
 }
 
@@ -37,4 +38,4 @@
 
 .row .delete-button:active {
   background-color: var(--button-color-delete-active);
-}
+} */

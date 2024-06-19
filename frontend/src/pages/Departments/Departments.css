@@ -6,6 +6,7 @@
   margin-top: 2rem;
   display: flex;
   gap: 2rem;
+  box-shadow: none;
 }
 
 .departments-page .add-department-form input, 
@@ -22,11 +23,11 @@
 }
 
 .departments-page .add-department-form button:hover {
-  background-color: var(--button-color-hover);
+  background-color: var(--button-color-accent-hover);
 }
 
 .departments-page .add-department-form button:active {
-  background-color: var(--button-color-active);
+  background-color: var(--button-color-accent-active);
 }
 
 .departments-page .show-entries-form {
@@ -34,19 +35,10 @@
   align-items: center;
   gap: 1rem;
   padding: 2rem 0;
+  box-shadow: none;
 }
 
 .departments-page .show-entries-form select {
   padding: 1rem 4rem 1rem 1rem;
   font-size: 1.4rem;
 }
-
-/* .departments-page table {
-  width: 100%;
-  background-color: white;
-}
-
-.departments-page table tr:nth-child(2n) {
-  background-color: rgb(231, 231, 231);
-} */
-

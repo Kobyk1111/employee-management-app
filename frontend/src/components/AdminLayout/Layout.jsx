@@ -1,15 +1,17 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
 import "./Layout.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DataContext } from "../../context/DataContext";
+import DropDownProfile from "../DropDownProfile/DropDownProfile";
 
 function Layout() {
   const {
     state: { loggedInAdmin },
-    dispatch,
+    // dispatch,
   } = useContext(DataContext);
-  const navigate = useNavigate();
+  const [openProfile, setOpenProfile] = useState(false);
+  // const navigate = useNavigate();
 
   // useEffect(() => {
   //   async function checkAuth() {
@@ -37,25 +39,23 @@ function Layout() {
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
-  // If the cookies are set with HTTPOnly, it cannot be removed by javascript from the frontend.
-  // So a request has to be sent to the backend to remove the cookies
-  async function handleLogout() {
-    try {
-      const response = await fetch("http://localhost:4001/logout/admin", {
-        method: "POST",
-        credentials: "include",
-      });
+  // async function handleLogout() {
+  //   try {
+  //     const response = await fetch("http://localhost:4001/logout/admin", {
+  //       method: "POST",
+  //       credentials: "include",
+  //     });
 
-      if (response.ok) {
-        dispatch({ type: "SET_ADMIN_LOGIN", payload: "" });
-        navigate("/");
-      } else {
-        console.error("Failed to log out");
-      }
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
-  }
+  //     if (response.ok) {
+  //       dispatch({ type: "SET_ADMIN_LOGIN", payload: "" });
+  //       navigate("/");
+  //     } else {
+  //       console.error("Failed to log out");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error logging out:", error);
+  //   }
+  // }
 
   return (
     <div className="admin-layout-container">
@@ -63,7 +63,18 @@ function Layout() {
       <div className="admin-outlet">
         <div className="admin-subnav">
           <h3> {loggedInAdmin.companyName}</h3>
-          <button onClick={handleLogout}>Log Out</button>
+          <div className="user-profile" onClick={() => setOpenProfile((prev) => !prev)}>
+            <h3>{loggedInAdmin.username}</h3>
+            <img
+              src={`/${loggedInAdmin.profilePicture}` || loggedInAdmin.profilePicture}
+              alt="profilePic"
+              width={40}
+              height={40}
+            />
+          </div>
+          {openProfile && <DropDownProfile setOpenProfile={setOpenProfile} />}
+
+          {/* <button onClick={handleLogout}>Log Out</button> */}
         </div>
         <Outlet />
       </div>

@@ -14,6 +14,7 @@
   max-width: 700px;
   margin-top: 2rem;
   box-shadow: var(--box-shadow-forms);
+  margin: 2rem auto 0;
 }
 
 .add-employee-page label {
@@ -24,7 +25,7 @@
 }
 
 .add-employee-page input, .add-employee-page select {
-  border: 1px solid rgb(70, 69, 69);
+  border: 1px solid rgb(219, 219, 219);
   padding: 1rem 1.2rem;
   font-size: 1.4rem;
   background-color: transparent;

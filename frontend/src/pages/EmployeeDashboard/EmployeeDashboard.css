@@ -1,0 +1,41 @@
+.employee-dashboard .dashboard-data {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 3rem;
+  padding: 1rem 3rem;
+}
+
+.employee-dashboard .dashboard-data .info-container {
+  color: white;
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  border-radius: 0.6rem;
+  
+}
+
+.employee-dashboard .dashboard-data .one {
+  background-color: #446b4c;
+}
+
+.employee-dashboard .dashboard-data .two {
+  background-color: #ad7a4a;
+}
+
+.employee-dashboard .dashboard-data .three {
+  background-color: #247BA0;
+}
+
+.employee-dashboard .dashboard-data .four {
+  background-color: #8b385f;
+}
+
+.employee-dashboard .welcome {
+  margin-left: 3rem;
+  margin-bottom: 1rem;
+}
+
+.employee-dashboard .info-container h2, 
+.employee-dashboard .info-container h4,
+.employee-dashboard .info-container a {
+  color: white;
+}

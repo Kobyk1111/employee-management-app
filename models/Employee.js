@@ -85,7 +85,9 @@ const employeeSchema = new Schema({
     unique: true,
     validate: {
       validator: function (value) {
-        return validator.isMobilePhone(value, "any", { strictMode: true });
+        // Regular expression to match German phone numbers
+        const phoneRegex = /^(0|\+49\s?)?[1-9]\d{1,14}$/;
+        return phoneRegex.test(value);
       },
       message: "Phone number is not valid",
     },
@@ -196,6 +198,8 @@ const employeeSchema = new Schema({
     required: [true, "Health insurance company is required"],
   },
 });
+
+// employeeSchema.index({ firstname: "text", lastname: "text", email: "text", department: "text", jobTitle: "text" });
 
 const Employee = model("Employee", employeeSchema);
 

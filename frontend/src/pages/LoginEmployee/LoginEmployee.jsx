@@ -53,30 +53,28 @@ function LoginEmployee() {
 
   return (
     <div className="employee-login-page">
-      {/* <div className="image-container">
-        <img src={image} alt="" />
-      </div> */}
-      <div className="employee-form-container">
-        <form onSubmit={handleSubmit}>
-          <h2>Employee Login</h2>
-          <label>
-            Email
-            <input type="email" name="email" value={logEmployeeInputs.email || ""} onChange={handleChange} required />
-          </label>
-          <label>
-            Password
-            <input
-              type="password"
-              name="password"
-              value={logEmployeeInputs.password || ""}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <button>Submit</button>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-        </form>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <h2>Employee Login</h2>
+        <label>
+          Email
+          <input type="email" name="email" value={logEmployeeInputs.email || ""} onChange={handleChange} required />
+        </label>
+        <label>
+          Password
+          <input
+            type="password"
+            name="password"
+            value={logEmployeeInputs.password || ""}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <button>Submit</button>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+      </form>
+      <p>
+        Go back to Admin Login <span onClick={() => navigate("/adminLogOrRegister")}>Here</span>
+      </p>
     </div>
   );
 }

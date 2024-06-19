@@ -49,6 +49,7 @@
 
 .landing-page .hero-content h2 {
   font-size: 4rem;
+  color: var(--button-color-accent-active);
   /* text-decoration: underline; */
   /* line-height: 1.5; */
   /* color: white; */

@@ -15,6 +15,9 @@ const initialState = {
   leaveInputs: {},
   employeeLeaveRequests: [],
   allEmployeesLeaveRequests: [],
+  allEmployees: [],
+  adminAccountSettingsInputs: {},
+  employeeAccountSettingsInputs: {},
 };
 
 function reducer(currentState, action) {
@@ -118,6 +121,46 @@ function reducer(currentState, action) {
       };
     }
 
+    case "SET_ALL_EMPLOYEES": {
+      return {
+        ...currentState,
+        allEmployees: action.payload,
+      };
+    }
+
+    case "SET_ADMIN_ACCOUNT_SETTINGS_INPUTS": {
+      return {
+        ...currentState,
+        adminAccountSettingsInputs: {
+          ...currentState.adminAccountSettingsInputs,
+          ...action.payload,
+        },
+      };
+    }
+
+    case "SET_EMPLOYEE_ACCOUNT_SETTINGS_INPUTS": {
+      return {
+        ...currentState,
+        employeeAccountSettingsInputs: {
+          ...currentState.employeeAccountSettingsInputs,
+          ...action.payload,
+        },
+      };
+    }
+
+    case "SET_EMPLOYEE_ACCOUNT_SETTINGS_BANK_INPUTS": {
+      return {
+        ...currentState,
+        employeeAccountSettingsInputs: {
+          ...currentState.employeeAccountSettingsInputs,
+          bankAccountDetails: {
+            ...currentState.employeeAccountSettingsInputs.bankAccountDetails,
+            ...action.payload,
+          },
+        },
+      };
+    }
+
     case "SET_ERROR": {
       return {
         ...currentState,
@@ -136,7 +179,13 @@ function DataContextProvider({ children }) {
     if (firstAccessResponse.ok) {
       return firstAccessResponse;
     } else {
-      const { error } = await firstAccessResponse.json();
+      let error;
+      try {
+        const responseClone = firstAccessResponse.clone();
+        error = await responseClone.json();
+      } catch (err) {
+        console.error("Failed to parse JSON response", err);
+      }
 
       if (error.status !== 401) {
         return firstAccessResponse;

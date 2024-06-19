@@ -21,7 +21,7 @@
   --button-color-delete-main: #a52222;
   --button-color-delete-hover: #dd4949;
   --button-color-delete-active: #5f1515;
-  --box-shadow-forms: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  --box-shadow-forms: rgba(0, 0, 0, 0.178) 0px 25px 50px -12px;
   --input-focus-color: #c9599a;
   scroll-behavior: smooth;
 }
@@ -29,8 +29,8 @@
 
 body {
   font-size: 1.6rem;
-  /* background-color: #EAD7D7; */
-  background-image: linear-gradient(to left, #f1bddb, #faeff5);
+  background-color: rgb(240, 238, 238);
+  /* background-image: linear-gradient(to left, #f1bddb, #faeff5); */
   font-family: "Poppins", sans-serif;
   color: var(--primary-font-color);
 }
@@ -39,6 +39,7 @@ button {
   font-family: "Poppins", sans-serif;
   border-radius: 0.6rem;
   border: none;
+  background-color: white;
 }
 
 h2, h3, h4, th {
@@ -61,15 +62,24 @@ th, td, table {
 }
 
 table tr:nth-child(2n) {
-  background-color: rgb(231, 231, 231);
+  background-color: rgb(241, 241, 241);
 }
 
 input, select {
   border-radius: 0.4rem;
   border: 1px solid grey;
+  color: rgb(82, 82, 82);
+}
+
+textarea {
+  font-family: inherit;
 }
 
 input:focus, select:focus, textarea:focus {
   border: 1px solid var(--button-color-main);
+}
+
+form {
+  box-shadow: var(--box-shadow-forms);
 }
 

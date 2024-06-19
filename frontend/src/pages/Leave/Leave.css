@@ -38,6 +38,7 @@
   align-items: center;
   gap: 1rem;
   padding: 2rem 0;
+  box-shadow: none;
 }
 
 .leave-page .show-entries-form select {

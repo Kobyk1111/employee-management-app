@@ -1,8 +1,12 @@
 .employee-details-page {
   padding: 0 3rem;
   width: 60%;
-  /* height: 100vh; */
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  /* align-items: center; */
 }
 
 .employee-details-page h2 {
@@ -19,14 +23,12 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 4rem;
-  /* border-bottom: 1px solid black; */
 }
 
 .employee-details-page .details-container {
   overflow-y: scroll;
-  /* width: 100%; */
-  /* background-color: white; */
-  /* padding: 3rem; */
+  background-color: white;
+  padding: 3rem;
   border-radius: 0.6rem;
   height: 70vh;
 }

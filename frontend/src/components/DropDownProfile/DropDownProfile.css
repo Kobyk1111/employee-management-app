@@ -1,0 +1,39 @@
+.admin-drop-down-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 7rem;
+  right: 3rem;
+  background-color: white;
+  width: 15rem;
+  border-radius: 1rem;
+  box-shadow: var(--box-shadow-forms);
+  overflow: hidden;
+}
+
+.admin-drop-down-container ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+.admin-drop-down-container ul li {
+  cursor: pointer;
+  width: 100%;
+  padding: 1.4rem 1.8rem;
+}
+
+.admin-drop-down-container ul li:first-of-type {
+  border-bottom: 1px solid rgb(197, 196, 196);
+}
+
+.admin-drop-down-container .logout {
+  color: red;
+  font-weight: bold;
+}
+
+.admin-drop-down-container ul li:hover {
+  background-color: var(--button-color-accent-hover);
+  color: white;
+}
+

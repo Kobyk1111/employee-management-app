@@ -53,9 +53,44 @@
   align-items: center;
   gap: 1rem;
   padding: 2rem 0;
+  box-shadow: none;
 }
 
 .employees-page .show-entries-form select {
   padding: 1rem 4rem 1rem 1rem;
   font-size: 1.4rem;
+}
+
+.employees-page label {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.employees-page label input {
+  cursor: pointer;
+  background-color: white;
+}
+
+.employees-page label input:disabled {
+  background-color: rgb(218, 218, 218);
+  color: rgb(173, 173, 173);
+}
+
+.employees-page .no-data-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.employees-page .image-data {
+  text-align: center;
+}
+
+.employees-page table img {
+  display: inline-block;
+  vertical-align: bottom;
+  border-radius: 50%;
+  border: 2px solid gray;
 }

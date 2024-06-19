@@ -44,7 +44,7 @@ function Departments() {
         };
 
         const response2 = await handleHTTPRequestWithToken(
-          `http://localhost:4001/admin/${loggedInAdmin.id}/addDepartment`,
+          `http://localhost:4001/admin/addDepartment/${loggedInAdmin.id}`,
           settings2
         );
 
@@ -86,7 +86,7 @@ function Departments() {
         <p>Show</p>
         <select name="" value={entry} onChange={(e) => setEntry(e.target.value)}>
           <option value="5">5</option>
-          <option value="10">10</option>
+          <option value="8">8</option>
         </select>
         <p>entries</p>
       </form>

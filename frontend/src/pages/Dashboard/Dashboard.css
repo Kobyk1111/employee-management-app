@@ -1,13 +1,40 @@
-.dashboard-data {
+.admin-dashboard .dashboard-data {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 3rem;
   padding: 1rem 3rem;
 }
 
-.dashboard-data .info-container {
+.admin-dashboard .dashboard-data .info-container {
   background-color: white;
   padding: 2rem;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
   border-radius: 0.6rem;
+}
+
+.admin-dashboard .dashboard-data .one {
+  background-color: #446b4c;
+}
+
+.admin-dashboard .dashboard-data .two {
+  background-color: #ad7a4a;
+}
+
+.admin-dashboard .dashboard-data .three {
+  background-color: #247BA0;
+}
+
+.admin-dashboard .dashboard-data .four {
+  background-color: #8b385f;
+}
+
+.admin-dashboard .welcome {
+  margin-left: 3rem;
+  margin-bottom: 1rem;
+}
+
+.admin-dashboard .info-container h2,
+.admin-dashboard .info-container h4,
+.admin-dashboard .info-container a {
+  color: white;
 }

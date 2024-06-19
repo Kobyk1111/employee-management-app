@@ -25,10 +25,20 @@
   padding: 0 3rem;
 }
 
-.employee-subnav button {
-  padding: 0.8rem 3rem;
-  font-size: 1.6rem;
-  background-color: var(--button-color-delete-main);
-  color: white;
-  border: none;
+.employee-subnav .user-profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.employee-subnav .user-profile h3 {
+  font-weight: normal;
+  font-size: 1.8rem;
+}
+
+.employee-subnav .user-profile img {
+  border: 1px solid black;
+  border-radius: 50%;
+  object-fit: cover;
 }
