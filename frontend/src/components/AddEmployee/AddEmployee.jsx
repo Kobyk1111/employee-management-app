@@ -76,8 +76,8 @@ function AddEmployee() {
 
       // If updateEmployeeId is a truthy value, then it means the function will be updating an employee instead of creating a new one
       const response = updateEmployeeId
-        ? await handleHTTPRequestWithToken(`http://localhost:4001/employee/${updateEmployeeId}`, settings)
-        : await handleHTTPRequestWithToken("http://localhost:4001/employee", settings);
+        ? await handleHTTPRequestWithToken(`${import.meta.env.VITE_API}/employee/${updateEmployeeId}`, settings)
+        : await handleHTTPRequestWithToken(`${import.meta.env.VITE_API}/employee`, settings);
 
       if (response.ok) {
         const { id } = await response.json();
@@ -92,7 +92,7 @@ function AddEmployee() {
         };
 
         const response2 = await handleHTTPRequestWithToken(
-          `http://localhost:4001/admin/addEmployee/${loggedInAdmin.id}/`,
+          `${import.meta.env.VITE_API}/admin/addEmployee/${loggedInAdmin.id}/`,
           settings2
         );
 

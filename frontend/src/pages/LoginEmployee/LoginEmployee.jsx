@@ -34,7 +34,7 @@ function LoginEmployee() {
     };
 
     try {
-      const response = await fetch("http://localhost:4001/employee/login", settings);
+      const response = await fetch(`${import.meta.env.VITE_API}/employee/login`, settings);
 
       if (response.ok) {
         const data = await response.json();

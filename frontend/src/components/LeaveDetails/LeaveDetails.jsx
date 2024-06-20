@@ -19,7 +19,7 @@ function LeaveDetails() {
   async function getAllEmployeesLeaveRequests() {
     try {
       const response = await handleHTTPRequestWithToken(
-        `http://localhost:4001/leave/getAllLeaves/${loggedInAdmin.companyId}`,
+        `${import.meta.env.VITE_API}/leave/getAllLeaves/${loggedInAdmin.companyId}`,
         {
           credentials: "include",
         }
@@ -64,7 +64,7 @@ function LeaveDetails() {
       };
 
       const response = await handleHTTPRequestWithToken(
-        `http://localhost:4001/leave/${foundLeave._id}/updateLeave`,
+        `${import.meta.env.VITE_API}/leave/${foundLeave._id}/updateLeave`,
         settings
       );
 

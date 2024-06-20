@@ -42,7 +42,7 @@ function AdminAccountSettings() {
 
     try {
       const response = await handleHTTPRequestWithToken(
-        `http://localhost:4001/admin/updateProfile/${loggedInAdmin.id}`,
+        `${import.meta.env.VITE_API}/admin/updateProfile/${loggedInAdmin.id}`,
         settings
       );
 

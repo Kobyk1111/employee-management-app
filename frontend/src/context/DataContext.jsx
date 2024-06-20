@@ -193,7 +193,7 @@ function DataContextProvider({ children }) {
 
       console.log("Expired token");
 
-      const refreshResponse = await fetch("http://localhost:4001/refresh-token", { credentials: "include" });
+      const refreshResponse = await fetch(`${import.meta.env.VITE_API}/refresh-token`, { credentials: "include" });
 
       if (refreshResponse.ok) {
         console.log("New cookies received");

@@ -43,7 +43,7 @@ function LeaveForm() {
         credentials: "include",
       };
 
-      const response = await handleHTTPRequestWithToken("http://localhost:4001/leave", settings);
+      const response = await handleHTTPRequestWithToken(`${import.meta.env.VITE_API}/leave`, settings);
 
       if (response.ok) {
         const { message } = await response.json();

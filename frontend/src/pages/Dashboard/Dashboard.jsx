@@ -21,7 +21,7 @@ function Dashboard() {
   async function getAllEmployeesLeaveRequests() {
     try {
       const response = await handleHTTPRequestWithToken(
-        `http://localhost:4001/leave/getAllLeaves/${loggedInAdmin.companyId}`,
+        `${import.meta.env.VITE_API}/leave/getAllLeaves/${loggedInAdmin.companyId}`,
         {
           credentials: "include",
         }

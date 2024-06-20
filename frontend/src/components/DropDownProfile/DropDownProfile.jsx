@@ -15,7 +15,7 @@ function DropDownProfile({ setOpenProfile }) {
   // So a request has to be sent to the backend to remove the cookies
   async function handleLogout() {
     try {
-      const response = await fetch("http://localhost:4001/logout/admin", {
+      const response = await fetch(`${import.meta.env.VITE_API}/logout/admin`, {
         method: "POST",
         credentials: "include",
       });

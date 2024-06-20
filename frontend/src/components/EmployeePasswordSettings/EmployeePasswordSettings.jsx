@@ -39,7 +39,7 @@ function EmployeePasswordSettings() {
       };
 
       const response = await handleHTTPRequestWithToken(
-        `http://localhost:4001/employee/updatePassword/${loggedInEmployee.id}/`,
+        `${import.meta.env.VITE_API}/employee/updatePassword/${loggedInEmployee.id}/`,
         settings
       );
 

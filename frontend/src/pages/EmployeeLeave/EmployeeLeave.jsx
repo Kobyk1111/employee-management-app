@@ -14,7 +14,7 @@ function EmployeeLeave() {
 
   async function getAllLeaveRequests(id) {
     try {
-      const response = await handleHTTPRequestWithToken(`http://localhost:4001/leave/${id}`, {
+      const response = await handleHTTPRequestWithToken(`${import.meta.env.VITE_API}/leave/${id}`, {
         credentials: "include",
       });
 

@@ -22,11 +22,6 @@ function LogOrRegisterAdmin() {
     dispatch({ type: "ADMIN_INPUTS_CHANGE", payload: { [e.target.name]: e.target.value } });
   }
 
-  // function to handle file input change
-  // function handleFileChange(e) {
-  //   setProfilePicture(e.target.files[0]);
-  // }
-
   // function to run when the form is submitted
   async function handleSubmit(e) {
     e.preventDefault();
@@ -59,7 +54,7 @@ function LogOrRegisterAdmin() {
 
     try {
       const response = await fetch(
-        isToRegister ? "http://localhost:4001/admin/register" : "http://localhost:4001/admin/login",
+        isToRegister ? `${import.meta.env.VITE_API}/admin/register` : `${import.meta.env.VITE_API}/admin/login`,
         settings
       );
 

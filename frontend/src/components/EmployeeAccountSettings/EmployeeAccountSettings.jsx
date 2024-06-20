@@ -73,7 +73,7 @@ function EmployeeAccountSettings() {
 
     try {
       const response = await handleHTTPRequestWithToken(
-        `http://localhost:4001/employee/updateProfile/${loggedInEmployee.id}`,
+        `${import.meta.env.VITE_API}/employee/updateProfile/${loggedInEmployee.id}`,
         settings
       );
 

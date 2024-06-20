@@ -15,7 +15,9 @@ function Employees() {
   const [searchInput, setSearchInput] = useState("");
   const [currPage, setCurrPage] = useState(1);
 
-  const url = `http://localhost:4001/employee/getAllEmployees/${loggedInAdmin.companyId}?page=${currPage}&entry=${entry}&search=${searchInput}`;
+  const url = `${import.meta.env.VITE_API}/employee/getAllEmployees/${
+    loggedInAdmin.companyId
+  }?page=${currPage}&entry=${entry}&search=${searchInput}`;
 
   async function getAllEmployees() {
     try {

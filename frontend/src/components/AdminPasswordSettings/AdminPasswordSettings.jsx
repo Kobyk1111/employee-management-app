@@ -39,7 +39,7 @@ function AdminPasswordSettings() {
       };
 
       const response = await handleHTTPRequestWithToken(
-        `http://localhost:4001/admin/updatePassword/${loggedInAdmin.id}/`,
+        `${import.meta.env.VITE_API}/admin/updatePassword/${loggedInAdmin.id}/`,
         settings
       );
 

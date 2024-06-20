@@ -28,8 +28,8 @@ function Departments() {
 
       // If updateDepartmentId is a truthy value, then it means the function will be updating a department instead of creating a new one
       const response = updateDepartmentId
-        ? await handleHTTPRequestWithToken(`http://localhost:4001/department/${updateDepartmentId}`, settings)
-        : await handleHTTPRequestWithToken("http://localhost:4001/department", settings);
+        ? await handleHTTPRequestWithToken(`${import.meta.env.VITE_API}/department/${updateDepartmentId}`, settings)
+        : await handleHTTPRequestWithToken(`${import.meta.env.VITE_API}/department`, settings);
 
       if (response.ok) {
         const { id } = await response.json();
@@ -44,7 +44,7 @@ function Departments() {
         };
 
         const response2 = await handleHTTPRequestWithToken(
-          `http://localhost:4001/admin/addDepartment/${loggedInAdmin.id}`,
+          `${import.meta.env.VITE_API}/admin/addDepartment/${loggedInAdmin.id}`,
           settings2
         );
 
