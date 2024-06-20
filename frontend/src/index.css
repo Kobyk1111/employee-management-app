@@ -76,7 +76,7 @@ textarea {
 }
 
 input:focus, select:focus, textarea:focus {
-  border: 1px solid var(--button-color-main);
+  outline: 1px solid var(--input-focus-color)
 }
 
 form {

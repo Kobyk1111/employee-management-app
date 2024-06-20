@@ -161,7 +161,16 @@ function LogOrRegisterAdmin() {
         {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
       <p>
-        Are you an employee? <span onClick={() => navigate("/employeeLogin")}>Click here to login</span>
+        Are you an employee?{" "}
+        <span
+          onClick={() => {
+            navigate("/employeeLogin");
+            dispatch({ type: "SET_ERROR", payload: "" });
+            dispatch({ type: "SET_ADMIN_LOGIN", payload: "" });
+          }}
+        >
+          Click here to login
+        </span>
       </p>
       <h3 onClick={() => navigate("/")} style={{ color: "#6f4897", cursor: "pointer" }}>
         Go to Landing Page

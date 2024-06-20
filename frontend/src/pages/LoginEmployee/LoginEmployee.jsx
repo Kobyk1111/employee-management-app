@@ -73,7 +73,16 @@ function LoginEmployee() {
         {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
       <p>
-        Go back to Admin Login <span onClick={() => navigate("/adminLogOrRegister")}>Here</span>
+        Go back to Admin Login{" "}
+        <span
+          onClick={() => {
+            navigate("/adminLogOrRegister");
+            dispatch({ type: "SET_ERROR", payload: "" });
+            dispatch({ type: "SET_EMPLOYEE_LOGIN", payload: "" });
+          }}
+        >
+          Here
+        </span>
       </p>
     </div>
   );

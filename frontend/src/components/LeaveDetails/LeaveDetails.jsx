@@ -51,7 +51,7 @@ function LeaveDetails() {
       const leaveResponse = {
         status: leaveResponseInputs.status,
         adminComment: leaveResponseInputs.adminComment,
-        adminActionOn: new Date().toDateString(),
+        adminActionOn: Date.now(),
       };
 
       const settings = {
