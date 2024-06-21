@@ -15,7 +15,7 @@ function EmployeeNavigation() {
     <nav className="employee-navigation">
       <div className="nav-info">
         <h3>{loggedInEmployee.jobTitle}</h3>
-        <img src={`/uploads/${loggedInEmployee.profilePicture}`} alt="" width={140} height={140} />
+        <img src={loggedInEmployee.profilePicture} alt="" width={140} height={140} />
       </div>
       <ul>
         <li>
