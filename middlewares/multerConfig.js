@@ -1,10 +1,10 @@
 import multer from "multer";
 
-const path = process.env.NODE_ENV === "development" ? "frontend/public" : "frontend/dist";
+const storagePath = process.env.NODE_ENV === "development" ? "frontend/public/uploads" : "frontend/dist/uploads";
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, path);
+    callback(null, storagePath);
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
