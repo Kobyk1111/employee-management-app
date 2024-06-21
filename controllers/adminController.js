@@ -2,6 +2,7 @@ import Admin from "../models/Admin.js";
 import createHttpError from "http-errors";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import validator from "validator";
 
 export async function checkAuth(req, res, next) {
   try {
@@ -51,12 +52,23 @@ export async function getAllLeaveRequests(req, res, next) {
 }
 
 export async function createAdmin(req, res, next) {
-  const { companyName } = req.body;
+  const { companyName, password } = req.body;
   try {
     const foundAdmin = await Admin.findOne({ companyName });
 
     if (!foundAdmin) {
-      const { password } = req.body;
+      //* Validate password strength here before hashing
+      const isPasswordStrong = validator.isStrongPassword(password);
+
+      if (!isPasswordStrong) {
+        return next(
+          createHttpError(
+            400,
+            "Password must contain at least 8 characters, including at least 1 lowercase character, 1 uppercase character, 1 number and 1 symbol"
+          )
+        );
+      }
+
       const hashedPassword = await bcrypt.hash(password, 10);
       const admin = await Admin.create({ ...req.body, password: hashedPassword });
 

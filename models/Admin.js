@@ -21,6 +21,7 @@ const adminSchema = new Schema({
     required: true,
     validate: {
       validator: function (value) {
+        console.log(value);
         return validator.isStrongPassword(value);
       },
       message:

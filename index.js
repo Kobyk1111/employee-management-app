@@ -28,7 +28,7 @@ app.use(
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(express.static(path.join(__dirname, "frontend/dist")));
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
 // app.use(express.static(path.join(__dirname, "frontend/public")));
 
@@ -40,8 +40,10 @@ app.use("/refresh-token", refreshTokenRouter);
 app.use("/logout", logoutRouter);
 
 app.get("*", (req, res) => {
-  res.sendFile(__dirname + "frontend/dist");
+  res.sendFile(__dirname + "/frontend/dist");
 });
+
+console.log(__dirname + "/frontend/dist");
 
 const port = process.env.PORT || 4001;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
