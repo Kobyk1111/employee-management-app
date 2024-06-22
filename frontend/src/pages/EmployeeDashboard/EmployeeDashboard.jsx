@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { DataContext } from "../../context/DataContext";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./EmployeeDashboard.css";
 
 function EmployeeDashboard() {
@@ -9,6 +9,8 @@ function EmployeeDashboard() {
     dispatch,
     handleHTTPRequestWithToken,
   } = useContext(DataContext);
+
+  const navigate = useNavigate();
 
   async function getAllLeaveRequests(id) {
     try {
@@ -32,6 +34,11 @@ function EmployeeDashboard() {
     getAllLeaveRequests(loggedInEmployee.id);
   }, []);
 
+  function handleProfile() {
+    dispatch({ type: "SET_EMPLOYEE_ACCOUNT_SETTINGS_INPUTS", payload: loggedInEmployee });
+    navigate("/employee/profile/account");
+  }
+
   const approvedLeaves = employeeLeaveRequests.filter((leave) => leave.status === "Approved");
   const rejectedLeaves = employeeLeaveRequests.filter((leave) => leave.status === "Rejected");
   const pendingLeaves = employeeLeaveRequests.filter((leave) => leave.status === "Pending");
@@ -54,7 +61,9 @@ function EmployeeDashboard() {
         </div>
         <div className="info-container four">
           <h4>Profile</h4>
-          <NavLink to={"/employee/profile/account"}>Go to profile</NavLink>
+          <p onClick={handleProfile} to={"/employee/profile/account"}>
+            Go to profile
+          </p>
         </div>
       </div>
     </div>

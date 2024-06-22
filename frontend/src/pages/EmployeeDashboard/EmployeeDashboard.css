@@ -10,7 +10,6 @@
   padding: 2rem;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
   border-radius: 0.6rem;
-  
 }
 
 .employee-dashboard .dashboard-data .one {
@@ -18,7 +17,7 @@
 }
 
 .employee-dashboard .dashboard-data .two {
-  background-color: #ad7a4a;
+  background-color: #ce8f30;
 }
 
 .employee-dashboard .dashboard-data .three {
@@ -27,6 +26,11 @@
 
 .employee-dashboard .dashboard-data .four {
   background-color: #8b385f;
+}
+
+.employee-dashboard .dashboard-data .four p {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .employee-dashboard .welcome {

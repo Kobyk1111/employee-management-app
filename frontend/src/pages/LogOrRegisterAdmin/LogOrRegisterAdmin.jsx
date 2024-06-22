@@ -173,7 +173,7 @@ function LogOrRegisterAdmin() {
         </span>
       </p>
       <h3 onClick={() => navigate("/")} style={{ color: "#6f4897", cursor: "pointer" }}>
-        Go to Landing Page
+        Go to Home Page
       </h3>
     </div>
   );

@@ -13,7 +13,7 @@ cloudinaryV2.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinaryV2,
   params: {
-    folder: "employee-management-app",
+    folder: "employee-management-app", // This is the name of the folder in the cloudinary website
     format: async (req, file) => {
       let extension = file.mimetype.slice(6);
       return extension;

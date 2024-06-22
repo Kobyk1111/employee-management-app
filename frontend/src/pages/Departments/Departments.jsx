@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { DataContext } from "../../context/DataContext";
 import EachDepartment from "../../components/EachDepartment/EachDepartment";
+import noDataImg from "../../assets/49586629_9264402 1.png";
 import "./Departments.css";
 
 function Departments() {
@@ -91,28 +92,35 @@ function Departments() {
         <p>entries</p>
       </form>
 
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Department Name</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {loggedInAdmin.departments?.map((department, index) => {
-            return (
-              <EachDepartment
-                key={department._id}
-                index={index}
-                department={department}
-                setNewDepartment={setNewDepartment}
-                setUpdateDepartmentId={setUpdateDepartmentId}
-              />
-            );
-          })}
-        </tbody>
-      </table>
+      {loggedInAdmin.departments.length > 0 ? (
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Department Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {loggedInAdmin.departments?.map((department, index) => {
+              return (
+                <EachDepartment
+                  key={department._id}
+                  index={index}
+                  department={department}
+                  setNewDepartment={setNewDepartment}
+                  setUpdateDepartmentId={setUpdateDepartmentId}
+                />
+              );
+            })}
+          </tbody>
+        </table>
+      ) : (
+        <div className="no-data-container">
+          <img src={noDataImg} alt="" width={350} />
+          <h3 className="no-data">No data to show</h3>
+        </div>
+      )}
     </div>
   );
 }

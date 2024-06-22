@@ -50,7 +50,7 @@ function Employees() {
           <p>Show</p>
           <select name="" value={entry} onChange={(e) => setEntry(e.target.value)}>
             <option value="5">5</option>
-            <option value="7">7</option>
+            <option value="10">10</option>
           </select>
           <p>entries</p>
         </form>
