@@ -101,7 +101,7 @@ function Employees() {
                 <tr key={employee._id}>
                   {/* <td>{index + 1}</td> */}
                   <td className="image-data">
-                    <img src={`/${employee.profilePicture}` || employee.profilePicture} alt="" width={35} />
+                    <img src={employee.profilePicture} alt="" width={35} />
                   </td>
                   <td>{employee.firstname}</td>
                   <td>{employee.lastname}</td>
