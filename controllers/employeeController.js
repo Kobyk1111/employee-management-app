@@ -173,7 +173,8 @@ export async function updateEmployeeProfile(req, res, next) {
       const updateData = { ...req.body };
 
       if (req.file) {
-        updateData.profilePicture = req.file.filename;
+        // updateData.profilePicture = req.file.filename;
+        updateData.profilePicture = req.file.path;
       }
 
       const options = {

@@ -378,7 +378,8 @@ export async function updateAdminProfile(req, res, next) {
       const updateData = { firstname, lastname, email, companyName };
 
       if (req.file) {
-        updateData.profilePicture = req.file.filename;
+        // updateData.profilePicture = req.file.filename;
+        updateData.profilePicture = req.file.path;
       }
 
       const options = {

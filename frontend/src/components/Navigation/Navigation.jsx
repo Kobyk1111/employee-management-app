@@ -15,7 +15,7 @@ function Navigation() {
     <nav className="navigation">
       <div className="nav-info">
         <h3>Administrator</h3>
-        <img src={`/${loggedInAdmin.profilePicture}` || loggedInAdmin.profilePicture} alt="" width={140} height={140} />
+        <img src={loggedInAdmin.profilePicture} alt="" width={140} height={140} />
       </div>
       <ul>
         <li>

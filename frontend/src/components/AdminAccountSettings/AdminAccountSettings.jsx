@@ -10,6 +10,7 @@ function AdminAccountSettings() {
     handleHTTPRequestWithToken,
   } = useContext(DataContext);
   const [profilePicture, setProfilePicture] = useState("");
+  // const [previewPic, setPreviewPic] = useState(null)
 
   const navigate = useNavigate();
 
@@ -101,6 +102,8 @@ function AdminAccountSettings() {
         <label>
           Update Profile Picture
           <input type="file" accept="image/*" onChange={(e) => setProfilePicture(e.target.files[0])} />
+          {/* Image preview code below. The profilePicture state should be truthy before the code will run. */}
+          <img src={profilePicture && URL.createObjectURL(profilePicture)} width={100} alt="" />
         </label>
         <div className="buttons-container">
           <button type="submit">Update</button>

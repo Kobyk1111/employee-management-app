@@ -7,7 +7,9 @@ const storage = multer.diskStorage({
     callback(null, path);
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    const uniqueSuffix = Date.now();
+    const extension = file.mimetype.slice(6); // png or jpeg or jpg etc
+    cb(null, file.fieldname + "-" + uniqueSuffix + "." + extension);
   },
   limits: { fileSize: 500000 }, // 500kb
 });

@@ -95,12 +95,12 @@ function EmployeeAccountSettings() {
 
   return (
     <div className="employee-account-settings-page">
-      {/* <h3>Account Settings</h3> */}
-
       <form onSubmit={handleSubmit}>
         <label>
           Update Profile Picture
           <input type="file" accept="image/*" onChange={(e) => setProfilePicture(e.target.files[0])} />
+          {/* Image preview code below. The profilePicture state should be truthy before the code will run. */}
+          <img src={profilePicture && URL.createObjectURL(profilePicture)} width={100} alt="" />
         </label>
         <label>
           First Name

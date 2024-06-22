@@ -9,14 +9,15 @@ import {
 } from "../controllers/employeeController.js";
 import authorizeRole from "../middlewares/authorizeRole.js";
 import { authenticateTokenOfAdmin } from "../middlewares/authenticateToken.js";
-import upload from "../middlewares/multerConfig.js";
+// import upload from "../middlewares/multerConfig.js";
+import uploadCloud from "../middlewares/multerCloudinary.js";
 
 const router = Router();
 
 router.post("/", authenticateTokenOfAdmin, authorizeRole("Admin"), createEmployee);
 router.get("/getAllEmployees/:id", getAllEmployees);
 router.post("/updatePassword/:id", updateEmployeePassword);
-router.post("/updateProfile/:id", upload.single("profilePicture"), updateEmployeeProfile);
+router.post("/updateProfile/:id", uploadCloud.single("profilePicture"), updateEmployeeProfile);
 router.post("/login", loginEmployee);
 router.post("/:id", updateEmployee);
 
