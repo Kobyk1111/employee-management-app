@@ -9,8 +9,8 @@ import employeeRouter from "./routes/employeeRoute.js";
 import leaveRouter from "./routes/leaveRoutes.js";
 import refreshTokenRouter from "./routes/refreshTokenRoute.js";
 import logoutRouter from "./routes/logoutRoute.js";
-// import path from "path";
-// import { fileURLToPath } from "url";
+import path from "path";
+import { fileURLToPath } from "url";
 
 connect();
 
@@ -25,10 +25,10 @@ app.use(
   })
 );
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// app.use(express.static(path.join(__dirname, "frontend/dist")));
+app.use(express.static(path.join(__dirname, "frontend/dist")));
 
 // app.use(express.static(path.join(__dirname, "frontend/public")));
 
@@ -39,9 +39,9 @@ app.use("/leave", leaveRouter);
 app.use("/refresh-token", refreshTokenRouter);
 app.use("/logout", logoutRouter);
 
-// app.get("*", (req, res) => {
-//   res.sendFile(__dirname + "frontend/dist");
-// });
+app.get("*", (req, res) => {
+  res.sendFile(__dirname + "frontend/dist");
+});
 
 // console.log(__dirname + "frontend/dist");
 
