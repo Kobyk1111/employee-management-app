@@ -11,6 +11,8 @@ import refreshTokenRouter from "./routes/refreshTokenRoute.js";
 import logoutRouter from "./routes/logoutRoute.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import cron from "node-cron";
+import axios from "axios";
 
 connect();
 
@@ -36,6 +38,21 @@ app.use("/employee", employeeRouter);
 app.use("/leave", leaveRouter);
 app.use("/refresh-token", refreshTokenRouter);
 app.use("/logout", logoutRouter);
+
+// Create a ping endpoint
+app.get("/ping", (req, res) => {
+  res.send("Pong");
+});
+
+// Schedule a task to ping the server every 14 minutes
+cron.schedule("*/14 * * * *", async () => {
+  try {
+    await axios.get("http://localhost:4001/ping");
+    console.log("Ping successful");
+  } catch (error) {
+    console.error("Error pinging the server:", error);
+  }
+});
 
 app.get("*", (req, res) => {
   res.sendFile(__dirname + "frontend/dist");
