@@ -47,7 +47,7 @@ app.get("/ping", (req, res) => {
 // Schedule a task to ping the server every 14 minutes
 cron.schedule("*/14 * * * *", async () => {
   try {
-    await axios.get("http://localhost:4001/ping");
+    await axios.get("https://employee-management-app-ktfx.onrender.com/ping");
     console.log("Ping successful");
   } catch (error) {
     console.error("Error pinging the server:", error);
