@@ -11,6 +11,7 @@
     - [Frontend Setup](#frontend-setup)
     - [Backend Setup](#backend-setup)
   - [Usage](#usage)
+  - [Demo](#demo)
   - [Responsiveness](#responsiveness)
   - [Known Issues](#known-issues)
   - [Contributing](#contributing)
@@ -86,6 +87,11 @@ The AdminHub Employee Management Application is a full-stack application designe
 4. **Dashboard:**
    - Admins can navigate to the admin dashboard to manage employees and departments.
    - Employees can view their personal details and submit leave requests.
+
+## Demo
+Click on the link below to see the live demo:
+
+https://employee-management-app-ktfx.onrender.com/
 
 ## Responsiveness
 
