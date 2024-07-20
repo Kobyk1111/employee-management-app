@@ -14,7 +14,6 @@
   - [Demo](#demo)
   - [Responsiveness](#responsiveness)
   - [Known Issues](#known-issues)
-  - [Contributing](#contributing)
   - [Contact](#contact)
 
 ## Overview
@@ -101,16 +100,6 @@ Due to the nature of this application, which is primarily intended for use on de
 
 - **Dependency Conflicts:** Some backend packages required the use of `npm install --force` due to compatibility issues.
 - **Mobile Responsiveness:** As stated above, the application is not optimized for mobile devices.
-
-## Contributing
-
-Contributions are welcome! Please follow these steps to contribute:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/your-feature`).
-3. Commit your changes (`git commit -am 'Add new feature'`).
-4. Push to the branch (`git push origin feature/your-feature`).
-5. Create a new Pull Request.
 
 ## Contact
 
