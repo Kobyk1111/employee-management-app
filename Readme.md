@@ -18,7 +18,7 @@
 
 ## Overview
 
-The AdminHub Employee Management Application is a full-stack application designed to streamline HR operations within a company. It provides features for managing employee records, assigning employees to departments, and ensuring data consistency across the application. The project was developed using the MERN (MongoDB, Express.js, React, Node.js) stack.
+The AdminHub Employee Management Application is a full-stack application designed to streamline HR operations within a company in Germany. It provides features for managing employee records, assigning employees to departments, and ensuring data consistency across the application. The project was developed using the MERN (MongoDB, Express.js, React, Node.js) stack.
 
 ## Features
 
