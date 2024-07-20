@@ -29,7 +29,6 @@ function EmployeeDetails() {
           <button onClick={handleEditEmployee} className="edit-button">
             Edit Employee
           </button>
-          {/* <button>Delete Employee</button> */}
           <button className="go-back-button" onClick={() => navigate("/admin/employees")}>
             Go back
           </button>

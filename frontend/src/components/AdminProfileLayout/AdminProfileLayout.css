@@ -1,13 +1,11 @@
 .admin-profile-layout-container {
   display: grid;
   grid-template-columns: 1fr 6fr;
-  /* min-height: 100vh; */
   overflow: hidden;
 }
 
 .admin-profile-layout-container .navigation {
   background-color: transparent;
-  /* border: 1px solid black; */
   border-right: 1px solid rgb(197, 196, 196);
 }
 

@@ -82,40 +82,42 @@ function Employees() {
       </div>
 
       {allEmployees.length > 0 ? (
-        <table>
-          <thead>
-            <tr>
-              {/* <th>#</th> */}
-              <th>Avatar</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Department</th>
-              <th>Job Title</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allEmployees.map((employee) => {
-              return (
-                <tr key={employee._id}>
-                  {/* <td>{index + 1}</td> */}
-                  <td className="image-data">
-                    <img src={employee.profilePicture} alt="" width={35} />
-                  </td>
-                  <td>{employee.firstname}</td>
-                  <td>{employee.lastname}</td>
-                  <td>{employee.email}</td>
-                  <td>{employee.department}</td>
-                  <td>{employee.jobTitle}</td>
-                  <td>
-                    <NavLink to={`/admin/employees/${employee._id}`}>View Details</NavLink>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div className="table-container">
+          <table>
+            <thead>
+              <tr>
+                {/* <th>#</th> */}
+                <th>Avatar</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Job Title</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {allEmployees.map((employee) => {
+                return (
+                  <tr key={employee._id}>
+                    {/* <td>{index + 1}</td> */}
+                    <td className="image-data">
+                      <img src={employee.profilePicture} alt="" width={35} />
+                    </td>
+                    <td>{employee.firstname}</td>
+                    <td>{employee.lastname}</td>
+                    <td>{employee.email}</td>
+                    <td>{employee.department}</td>
+                    <td>{employee.jobTitle}</td>
+                    <td>
+                      <NavLink to={`/admin/employees/${employee._id}`}>View Details</NavLink>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <div className="no-data-container">
           <img src={noDataImg} alt="" width={350} />

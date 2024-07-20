@@ -10,7 +10,6 @@ function AdminAccountSettings() {
     handleHTTPRequestWithToken,
   } = useContext(DataContext);
   const [profilePicture, setProfilePicture] = useState("");
-  // const [previewPic, setPreviewPic] = useState(null)
 
   const navigate = useNavigate();
 

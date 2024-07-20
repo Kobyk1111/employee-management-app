@@ -46,6 +46,11 @@
   font-size: 1.4rem;
 }
 
+.leave-page .table-container {
+  max-height: 45rem;
+  overflow: auto;
+}
+
 .leave-page .no-data-container {
   display: flex;
   flex-direction: column;

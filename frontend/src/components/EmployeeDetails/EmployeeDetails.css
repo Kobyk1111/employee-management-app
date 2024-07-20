@@ -6,7 +6,6 @@
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  /* align-items: center; */
 }
 
 .employee-details-page h2 {
@@ -37,14 +36,11 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  /* width: 100%; */
   border-bottom: 1px solid grey;
 }
 
 .employee-details-page p {
   padding: 1.6rem 0;
-  /* border-bottom: 1px solid grey; */
-  /* display: flex; */
   gap: 5rem;
 }
 
@@ -60,7 +56,6 @@
 
 .employee-details-page button {
   padding: 1rem 3rem;
-  /* margin: 2rem 2rem 2rem 0; */
   font-size: 1.4rem;
 }
 

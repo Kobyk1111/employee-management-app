@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate /* useNavigate */ } from "react-router-dom";
+import { Route, Routes, Navigate, useNavigate, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import LogOrRegisterAdmin from "./pages/LogOrRegisterAdmin/LogOrRegisterAdmin";
@@ -6,7 +6,7 @@ import LoginEmployee from "./pages/LoginEmployee/LoginEmployee";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import EmployeeDashboard from "./pages/EmployeeDashboard/EmployeeDashboard";
 import { DataContext } from "./context/DataContext";
-import { useContext /* useEffect */ } from "react";
+import { useContext, useEffect, useState } from "react";
 import Layout from "./components/AdminLayout/Layout";
 import Departments from "./pages/Departments/Departments";
 import Employees from "./pages/Employees/Employees";
@@ -24,42 +24,82 @@ import AdminAccountSettings from "./components/AdminAccountSettings/AdminAccount
 import EmployeeProfileLayout from "./components/EmployeeProfileLayout/EmployeeProfileLayout";
 import EmployeeAccountSettings from "./components/EmployeeAccountSettings/EmployeeAccountSettings";
 import EmployeePasswordSettings from "./components/EmployeePasswordSettings/EmployeePasswordSettings";
+import { BounceLoader } from "react-spinners";
 
 function App() {
   const {
     state: { loggedInAdmin, loggedInEmployee },
-    // dispatch,
+    handleHTTPRequestWithToken,
+    dispatch,
   } = useContext(DataContext);
+  const [initialLoading, setInitialLoading] = useState(true);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // The useEffect will keep the admin logged in so far as the admin is authenticated, even when the app is refreshed.
-  // useEffect(() => {
-  //   async function checkAuth() {
-  //     try {
-  //       const response = await fetch("http://localhost:4001/admin/check-auth", {
-  //         credentials: "include",
-  //       });
+  useEffect(() => {
+    // Store the current path in local storage whenever it changes
+    localStorage.setItem("lastPath", location.pathname);
+  }, [location]);
 
-  //       if (response.ok) {
-  //         const adminData = await response.json();
-  //         dispatch({ type: "SET_ADMIN_LOGIN", payload: adminData });
-  //         navigate("/admin/dashboard");
-  //       } else {
-  //         navigate("/adminLogOrRegister");
-  //         const { error } = await response.json();
-  //         throw new Error(error.message);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error checking auth:", error.message);
-  //       alert(error.message);
-  //       navigate("/adminLogOrRegister");
-  //     }
-  //   }
+  useEffect(() => {
+    async function checkAuth(url, loginActionType, lastPathKey, redirectPath) {
+      try {
+        const response = await handleHTTPRequestWithToken(url, { credentials: "include" });
 
-  //   checkAuth();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+        if (response.ok) {
+          const data = await response.json();
+          dispatch({ type: loginActionType, payload: data });
+          const lastPath = localStorage.getItem(lastPathKey);
+          navigate(lastPath || redirectPath, { replace: true });
+        } else {
+          localStorage.removeItem(lastPathKey);
+          navigate(redirectPath, { replace: true });
+        }
+      } catch (error) {
+        console.error("Error checking auth:", error.message);
+        alert(error.message);
+        localStorage.removeItem(lastPathKey);
+        navigate(redirectPath, { replace: true });
+      } finally {
+        setTimeout(() => {
+          setInitialLoading(false);
+        }, 1000);
+      }
+    }
+
+    // Only check authentication if not already logged in and if the app is still loading
+    const currentPath = location.pathname;
+
+    if (currentPath.startsWith("/admin") && !loggedInAdmin && initialLoading) {
+      checkAuth("http://localhost:4001/admin/check-auth", "SET_ADMIN_LOGIN", "lastPath", "/adminLogOrRegister");
+    } else if (currentPath.startsWith("/employee") && !loggedInEmployee && initialLoading) {
+      checkAuth("http://localhost:4001/employee/check-auth", "SET_EMPLOYEE_LOGIN", "lastPath", "/employeeLogin");
+    } else {
+      // Finish loading state if already logged in or path doesn't require authentication
+      if (initialLoading) {
+        setTimeout(() => {
+          setInitialLoading(false);
+        }, 1000);
+      }
+    }
+  }, [
+    loggedInAdmin,
+    loggedInEmployee,
+    initialLoading,
+    handleHTTPRequestWithToken,
+    navigate,
+    dispatch,
+    location.pathname,
+  ]);
+
+  if (initialLoading) {
+    return (
+      <div className="loading-spinner">
+        <BounceLoader color={"#5f71ad"} loading={initialLoading} size={40} />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -90,7 +130,6 @@ function App() {
         {loggedInEmployee ? (
           <Route path="/employee" element={<EmployeeLayout />}>
             <Route path="dashboard" element={<EmployeeDashboard />} />
-            {/* <Route path="profile" element={<EmployeeProfile />} /> */}
             <Route path="leave" element={<EmployeeLeave />} />
             <Route path="leave/addLeave" element={<EmployeeLeaveForm />} />
             <Route path="profile/account" element={<EmployeeProfileLayout />}>
@@ -103,7 +142,6 @@ function App() {
         )}
         <Route path="*" element={<PageNotFound />} />
       </Routes>
-      {/* )} */}
     </>
   );
 }

@@ -1,15 +1,6 @@
 .home-container {
-  /* display: grid;
-  grid-template-columns: 1fr 1fr; */
   min-height: 100vh;
 }
-
-/* .home-container .image-container {
-  background-image: url(../../assets/pawel-czerwinski-eGTFP1ryhOw-unsplash.jpg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-} */
 
 .home-container .buttons-container {
   margin-top: 2rem;
@@ -25,4 +16,3 @@
   border: none;
   cursor: pointer;
 }
-

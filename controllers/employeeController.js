@@ -1,7 +1,50 @@
 import Employee from "../models/Employee.js";
+import Department from "../models/Department.js";
 import createHttpError from "http-errors";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+
+export async function checkAuth(req, res, next) {
+  try {
+    const foundEmployee = await Employee.findById(req.user._id);
+
+    // await admin.populate({ path: "departments", select: "name" });
+    // await admin.populate("employees");
+
+    res.json({
+      id: foundEmployee._id,
+      username: foundEmployee.firstname,
+      firstname: foundEmployee.firstname,
+      lastname: foundEmployee.lastname,
+      email: foundEmployee.email,
+      gender: foundEmployee.gender,
+      maritalStatus: foundEmployee.maritalStatus,
+      noOfChildren: foundEmployee.noOfChildren,
+      phoneNumber: foundEmployee.phoneNumber,
+      city: foundEmployee.city,
+      state: foundEmployee.state,
+      country: foundEmployee.country,
+      street: foundEmployee.street,
+      houseNumber: foundEmployee.houseNumber,
+      postalCode: foundEmployee.postalCode,
+      taxIdentificationNumber: foundEmployee.taxIdentificationNumber,
+      socialSecurityNumber: foundEmployee.socialSecurityNumber,
+      incomeTaxClass: foundEmployee.incomeTaxClass,
+      healthInsuranceCompany: foundEmployee.healthInsuranceCompany,
+      bankAccountDetails: {
+        bankName: foundEmployee.bankAccountDetails.bankName,
+        IBAN: foundEmployee.bankAccountDetails.IBAN,
+        BIC: foundEmployee.bankAccountDetails.BIC,
+      },
+      companyId: foundEmployee.companyId,
+      companyName: foundEmployee.companyName,
+      profilePicture: foundEmployee.profilePicture,
+      jobTitle: foundEmployee.jobTitle,
+    });
+  } catch (error) {
+    next(createHttpError(500, "Auth failed. Please login"));
+  }
+}
 
 export async function getAllEmployees(req, res, next) {
   const { id } = req.params;
@@ -33,7 +76,7 @@ export async function getAllEmployees(req, res, next) {
 }
 
 export async function createEmployee(req, res, next) {
-  const { email, phoneNumber, password } = req.body;
+  const { email, phoneNumber, password, department, companyId } = req.body;
 
   try {
     const foundEmployee = await Employee.findOne({ email, phoneNumber });
@@ -44,9 +87,24 @@ export async function createEmployee(req, res, next) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const createEmployee = await Employee.create({ ...req.body, password: hashedPassword });
+    // Find the department by name
+    const departmentDoc = await Department.findOne({ name: department, companyId });
+    if (!departmentDoc) {
+      return next(createHttpError(404, "Department not found"));
+    }
+
+    const newEmployee = await Employee.create({
+      ...req.body,
+      password: hashedPassword,
+      departmentId: departmentDoc._id,
+    });
+
+    // Add the new employee ID to the department's employees array
+    departmentDoc.employees.push(newEmployee._id);
+    await departmentDoc.save();
+
     res.status(201).json({
-      id: createEmployee._id,
+      id: newEmployee._id,
     });
   } catch (err) {
     console.log(err);

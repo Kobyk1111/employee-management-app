@@ -8,7 +8,7 @@ export async function checkAuth(req, res, next) {
   try {
     const admin = await Admin.findById(req.user._id);
 
-    await admin.populate({ path: "departments", select: "name" });
+    await admin.populate("departments");
     await admin.populate("employees");
 
     res.json({
@@ -57,7 +57,7 @@ export async function createAdmin(req, res, next) {
     const foundAdmin = await Admin.findOne({ companyName });
 
     if (!foundAdmin) {
-      //* Validate password strength here before hashing
+      // Validate password strength here before hashing
       const isPasswordStrong = validator.isStrongPassword(password);
 
       if (!isPasswordStrong) {
@@ -72,7 +72,7 @@ export async function createAdmin(req, res, next) {
       const hashedPassword = await bcrypt.hash(password, 10);
       const admin = await Admin.create({ ...req.body, password: hashedPassword });
 
-      await admin.populate({ path: "departments", select: "name" });
+      await admin.populate("departments");
 
       await admin.populate("employees");
 
@@ -93,7 +93,6 @@ export async function createAdmin(req, res, next) {
       const refreshOptions = {
         ...cookieOptions,
         maxAge: 1000 * 60 * 60 * 24,
-        // path: "/refresh-token",
       };
 
       res.cookie("adminAccessCookie", accessToken, accessOptions);
@@ -148,7 +147,7 @@ export async function loginAdmin(req, res, next) {
         return next(createHttpError(400, "Wrong password, please try again!"));
       }
 
-      await foundAdmin.populate({ path: "departments", select: "name" });
+      await foundAdmin.populate("departments");
 
       await foundAdmin.populate("employees");
 
@@ -169,7 +168,6 @@ export async function loginAdmin(req, res, next) {
       const refreshOptions = {
         ...cookieOptions,
         maxAge: 1000 * 60 * 60 * 24,
-        // path: "/refresh-token",
       };
 
       res.cookie("adminAccessCookie", accessToken, accessOptions);
@@ -209,7 +207,7 @@ export async function addDepartment(req, res, next) {
         runValidators: true,
       };
 
-      // if the newDepartmentId is already in the database, it means we are updating the department instead of creating a new one. So it will filtered out first and then replaced with a new departmentId.
+      // if the newDepartmentId is already in the database, it means we are updating the department instead of creating a new one. So it will be filtered out first and then replaced with a new departmentId.
       foundAdmin.departments = foundAdmin.departments.filter(
         (department) => department._id.toString() !== newDepartmentId
       );
@@ -217,11 +215,11 @@ export async function addDepartment(req, res, next) {
 
       const updatedAdmin = await Admin.findByIdAndUpdate(id, { $push: { departments: newDepartmentId } }, options);
 
-      await updatedAdmin.populate("departments", {
-        name: 1,
-      });
+      await updatedAdmin.populate("departments");
 
       await updatedAdmin.populate("employees");
+
+      console.log(updatedAdmin);
 
       res.status(201).json({
         id: updatedAdmin._id,
@@ -261,9 +259,7 @@ export async function deleteDepartment(req, res, next) {
 
       await foundAdmin.save();
 
-      await foundAdmin.populate("departments", {
-        name: 1,
-      });
+      await foundAdmin.populate("departments");
 
       await foundAdmin.populate("employees");
 
@@ -310,9 +306,7 @@ export async function addEmployee(req, res, next) {
 
       const updatedAdmin = await Admin.findByIdAndUpdate(id, { $push: { employees: newEmployeeId } }, options);
 
-      await updatedAdmin.populate("departments", {
-        name: 1,
-      });
+      await updatedAdmin.populate("departments");
 
       await updatedAdmin.populate("employees");
 
@@ -389,7 +383,7 @@ export async function updateAdminProfile(req, res, next) {
 
       const updatedAdmin = await Admin.findByIdAndUpdate(id, updateData, options);
 
-      await updatedAdmin.populate({ path: "departments", select: "name" });
+      await updatedAdmin.populate("departments");
 
       await updatedAdmin.populate("employees");
 
@@ -442,7 +436,7 @@ export async function updateAdminPassword(req, res, next) {
 
       const updatedAdmin = await Admin.findByIdAndUpdate(id, { password: hashedPassword }, options);
 
-      await updatedAdmin.populate({ path: "departments", select: "name" });
+      await updatedAdmin.populate("departments");
 
       await updatedAdmin.populate("employees");
 

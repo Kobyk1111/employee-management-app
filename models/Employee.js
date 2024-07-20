@@ -135,6 +135,10 @@ const employeeSchema = new Schema({
     type: String,
     required: [true, "Department is required"],
   },
+  departmentId: {
+    type: Schema.Types.ObjectId,
+    ref: "Department",
+  },
   salary: {
     type: Number,
     required: [true, "Salary is required"],
@@ -198,8 +202,6 @@ const employeeSchema = new Schema({
     required: [true, "Health insurance company is required"],
   },
 });
-
-// employeeSchema.index({ firstname: "text", lastname: "text", email: "text", department: "text", jobTitle: "text" });
 
 const Employee = model("Employee", employeeSchema);
 

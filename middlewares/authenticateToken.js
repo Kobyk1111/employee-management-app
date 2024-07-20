@@ -3,38 +3,6 @@ import createHttpError from "http-errors";
 import Admin from "../models/Admin.js";
 import Employee from "../models/Employee.js";
 
-// export async function authenticateTokenOfAdmin(req, res, next) {
-//   try {
-//     const { adminAccessCookie, adminRefreshCookie } = req.cookies;
-
-//     if (!adminAccessCookie && !adminRefreshCookie) {
-//       throw new Error("Authentication required. Please log in.");
-//     }
-
-//     let token;
-
-//     if (adminRefreshCookie) {
-//       token = adminRefreshCookie;
-//     } else {
-//       token = adminAccessCookie;
-//     }
-
-//     const { id } = jwt.verify(token, process.env.JWT_SECRET_KEY);
-
-//     const foundAdmin = await Admin.findById(id);
-
-//     if (foundAdmin) {
-//       req.user = foundAdmin;
-//     } else {
-//       return next(createHttpError(404, "Admin not found"));
-//     }
-
-//     next();
-//   } catch (error) {
-//     next(createHttpError(401, error.message));
-//   }
-// }
-
 export async function authenticateTokenOfAdmin(req, res, next) {
   try {
     const { adminAccessCookie, adminRefreshCookie } = req.cookies;
@@ -87,34 +55,54 @@ export async function authenticateTokenOfAdmin(req, res, next) {
   }
 }
 
-// export async function authenticateTokenOfEmployee(req, res, next) {
-//   try {
-//     const { employeeAccessCookie, employeeRefreshCookie } = req.cookies;
+export async function authenticateTokenOfEmployee(req, res, next) {
+  try {
+    const { employeeAccessCookie, employeeRefreshCookie } = req.cookies;
 
-//     if (!employeeAccessCookie && !employeeRefreshCookie) {
-//       throw new Error("You could not be authenticated. Please try again");
-//     }
+    if (!employeeAccessCookie && !employeeRefreshCookie) {
+      throw new Error("Authentication required. Please log in.");
+    }
 
-//     let token;
+    let token = employeeAccessCookie;
+    let isAccessToken = true;
 
-//     if (employeeRefreshCookie) {
-//       token = employeeRefreshCookie;
-//     } else {
-//       token = employeeAccessCookie;
-//     }
+    try {
+      const { id } = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      const foundEmployee = await Employee.findById(id);
+      if (!foundEmployee) {
+        throw new Error("Employee not found");
+      }
+      req.user = foundEmployee;
+      return next();
+    } catch (err) {
+      isAccessToken = false;
+    }
 
-//     const { id } = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    if (!isAccessToken && employeeRefreshCookie) {
+      console.log("access token expired");
+      token = employeeRefreshCookie;
+      const { id } = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      const foundEmployee = await Employee.findById(id);
+      if (!foundEmployee) {
+        throw new Error("Employee not found");
+      }
 
-//     const foundEmployee = await Employee.findById(id);
+      const newAccessToken = jwt.sign({ id: foundEmployee._id }, process.env.JWT_SECRET_KEY, { expiresIn: "15m" });
+      res.cookie("employeeAccessCookie", newAccessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "Strict",
+        maxAge: 1000 * 60 * 15,
+      });
 
-//     if (foundEmployee) {
-//       req.user = foundEmployee;
-//     } else {
-//       return next(createHttpError(404, "Admin not found"));
-//     }
+      console.log("New access token created");
 
-//     next();
-//   } catch (error) {
-//     next(createHttpError(401, error.message));
-//   }
-// }
+      req.user = foundEmployee;
+      next();
+    } else {
+      throw new Error("Invalid token. Please log in again.");
+    }
+  } catch (error) {
+    next(createHttpError(401, error.message));
+  }
+}

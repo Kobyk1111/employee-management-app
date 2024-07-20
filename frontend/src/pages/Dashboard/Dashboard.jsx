@@ -68,7 +68,6 @@ function Dashboard() {
         <div className="info-container four">
           <h2>${totalSalary}</h2>
           <h4>Salary Per Year</h4>
-          {/* <NavLink>Read more</NavLink> */}
         </div>
       </div>
     </div>

@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { DataContext } from "../../context/DataContext";
 import { useNavigate } from "react-router-dom";
 import "./LoginEmployee.css";
-// import image from "../../assets/pawel-czerwinski-f0uJwOCef28-unsplash.jpg";
 
 function LoginEmployee() {
   const {

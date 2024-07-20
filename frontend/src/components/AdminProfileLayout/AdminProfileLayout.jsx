@@ -7,7 +7,7 @@ function ProfileLayout() {
       <nav className="navigation">
         <ul>
           <li>
-            {/* The end attribute stops the link from being active and another link is clicked. This is useful if the first link is has the index route in App.jsx */}
+            {/* The end attribute stops the link from being active when another link is clicked. This is useful if the first link is the index route in App.jsx */}
             <NavLink to="/admin/profile/account" end>
               Account Settings
             </NavLink>

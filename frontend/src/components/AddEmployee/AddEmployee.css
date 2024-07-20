@@ -24,17 +24,13 @@
   font-weight: bold;
 }
 
-.add-employee-page input, .add-employee-page select {
+.add-employee-page input,
+.add-employee-page select {
   border: 1px solid rgb(219, 219, 219);
   padding: 1rem 1.2rem;
   font-size: 1.4rem;
   background-color: transparent;
 }
-
-/* .add-employee-page input:focus,
-.add-employee-page select:focus {
-  outline: 2px solid var(--button-color-hover);
-} */
 
 .add-employee-page option {
   padding: 1rem 0;

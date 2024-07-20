@@ -9,7 +9,7 @@
   box-shadow: none;
 }
 
-.departments-page .add-department-form input, 
+.departments-page .add-department-form input,
 .departments-page .add-department-form button {
   padding: 1rem 2rem;
   font-size: 1.4rem;
@@ -41,6 +41,11 @@
 .departments-page .show-entries-form select {
   padding: 1rem 4rem 1rem 1rem;
   font-size: 1.4rem;
+}
+
+.departments-page .table-container {
+  max-height: 45rem;
+  overflow: auto;
 }
 
 .departments-page .no-data-container {

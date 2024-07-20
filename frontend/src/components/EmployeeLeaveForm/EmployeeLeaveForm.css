@@ -12,7 +12,6 @@
   max-width: 700px;
   margin-top: 2rem;
   height: 80vh;
-  /* overflow-y: scroll; */
   margin: 0 auto;
   border-radius: 0.6rem;
 }
@@ -35,7 +34,7 @@
 
 .employee-leave-form-page input,
 .employee-leave-form-page select,
-.employee-leave-form-page textarea{
+.employee-leave-form-page textarea {
   border: 1px solid rgb(187, 187, 187);
   padding: 1rem 1.2rem;
   font-size: 1.4rem;

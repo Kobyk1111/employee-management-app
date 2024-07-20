@@ -35,7 +35,6 @@ const leaveSchema = new Schema({
   },
   comment: {
     type: String,
-    // required: true,
   },
   adminActionOn: {
     type: Date,

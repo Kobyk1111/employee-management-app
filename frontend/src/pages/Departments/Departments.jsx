@@ -14,12 +14,14 @@ function Departments() {
     handleHTTPRequestWithToken,
   } = useContext(DataContext);
 
+  console.log(loggedInAdmin);
+
   async function handleSubmitDepartment(e) {
     e.preventDefault();
 
     try {
       const settings = {
-        body: JSON.stringify({ newDepartment }),
+        body: JSON.stringify({ newDepartment, companyId: loggedInAdmin.companyId }),
         method: "POST",
         headers: {
           "Content-Type": "application/JSON",
@@ -67,6 +69,8 @@ function Departments() {
     }
   }
 
+  console.log(loggedInAdmin.departments);
+
   return (
     <div className="departments-page">
       <h2>Departments</h2>
@@ -93,28 +97,31 @@ function Departments() {
       </form>
 
       {loggedInAdmin.departments.length > 0 ? (
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Department Name</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loggedInAdmin.departments?.map((department, index) => {
-              return (
-                <EachDepartment
-                  key={department._id}
-                  index={index}
-                  department={department}
-                  setNewDepartment={setNewDepartment}
-                  setUpdateDepartmentId={setUpdateDepartmentId}
-                />
-              );
-            })}
-          </tbody>
-        </table>
+        <div className="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Department Name</th>
+                <th>Number of employees</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {loggedInAdmin.departments?.map((department, index) => {
+                return (
+                  <EachDepartment
+                    key={department._id}
+                    index={index}
+                    department={department}
+                    setNewDepartment={setNewDepartment}
+                    setUpdateDepartmentId={setUpdateDepartmentId}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <div className="no-data-container">
           <img src={noDataImg} alt="" width={350} />

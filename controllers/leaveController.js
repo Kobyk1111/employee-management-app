@@ -1,5 +1,4 @@
 import Leave from "../models/Leave.js";
-// import Admin from "../models/Admin.js";
 import createHttpError from "http-errors";
 
 export async function getEmployeeLeaveRequests(req, res, next) {

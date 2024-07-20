@@ -12,8 +12,6 @@ function LogOrRegisterAdmin() {
     dispatch,
   } = useContext(DataContext);
 
-  // const [profilePicture, setProfilePicture] = useState("");
-
   // initialize useNavigate hook
   const navigate = useNavigate();
 

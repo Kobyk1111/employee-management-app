@@ -6,6 +6,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .employees-page .add-employee-button {
@@ -86,6 +87,16 @@
 
 .employees-page .image-data {
   text-align: center;
+}
+
+.employees-page .table-container {
+  max-height: 45rem;
+  overflow: auto;
+}
+
+.employees-page table {
+  min-width: 600px;
+  width: 100%;
 }
 
 .employees-page table img {

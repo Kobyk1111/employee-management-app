@@ -2,7 +2,6 @@
   display: grid;
   grid-template-columns: 1fr 6fr;
   min-height: 100vh;
-  /* width: 100%; */
 }
 
 .employee-outlet {
@@ -11,8 +10,6 @@
   height: 100vh;
   width: 100%;
   gap: 3rem;
-  /* padding: 0 3rem; */
-  /* overflow: hidden; */
 }
 
 .employee-subnav {

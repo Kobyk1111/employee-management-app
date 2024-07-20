@@ -11,7 +11,6 @@ function EmployeeNavigation() {
   } = useContext(DataContext);
 
   return (
-    // <div>
     <nav className="employee-navigation">
       <div className="nav-info">
         <h3>{loggedInEmployee.jobTitle}</h3>
@@ -24,9 +23,6 @@ function EmployeeNavigation() {
             Dashboard
           </NavLink>
         </li>
-        {/* <li>
-            <NavLink to="/employee/profile">Profile</NavLink>
-          </li> */}
         <li>
           <NavLink to="/employee/leave">
             <FaRegCalendarDays />
@@ -35,7 +31,6 @@ function EmployeeNavigation() {
         </li>
       </ul>
     </nav>
-    // </div>
   );
 }
 

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { DataContext } from "../../context/DataContext";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
@@ -10,9 +10,18 @@ function AddEmployee() {
     dispatch,
     handleHTTPRequestWithToken,
   } = useContext(DataContext);
-  // const [profilePicture, setProfilePicture] = useState("")
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    async function checkDepartmentLength() {
+      if (loggedInAdmin.departments.length === 0) {
+        alert("Please create department(s) first before creating an employee");
+        navigate("/admin/employees");
+      }
+    }
+    checkDepartmentLength();
+  }, [loggedInAdmin]);
 
   function handleChange(e) {
     dispatch({ type: "SET_CREATE_EMPLOYEE_INPUTS", payload: { [e.target.name]: e.target.value } });
@@ -26,9 +35,6 @@ function AddEmployee() {
     e.preventDefault();
 
     try {
-      // const formData = new FormData()
-      // formData.append("profilePicture", profilePicture)
-
       const newEmployee = {
         firstname: createEmployeeInputs.firstname,
         lastname: createEmployeeInputs.lastname,

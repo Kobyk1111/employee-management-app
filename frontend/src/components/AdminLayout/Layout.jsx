@@ -8,54 +8,8 @@ import DropDownProfile from "../DropDownProfile/DropDownProfile";
 function Layout() {
   const {
     state: { loggedInAdmin },
-    // dispatch,
   } = useContext(DataContext);
   const [openProfile, setOpenProfile] = useState(false);
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   async function checkAuth() {
-  //     try {
-  //       const response = await fetch("http://localhost:4001/admin/check-auth", {
-  //         credentials: "include",
-  //       });
-
-  //       if (response.ok) {
-  //         const adminData = await response.json();
-  //         dispatch({ type: "SET_ADMIN_LOGIN", payload: adminData });
-  //         // navigate("/dashboard");
-  //       } else {
-  //         navigate("/adminLogOrRegister");
-  //         const { error } = await response.json();
-  //         throw new Error(error.message);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error checking auth:", error.message);
-  //       navigate("/adminLogOrRegister");
-  //     }
-  //   }
-
-  //   checkAuth();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  // async function handleLogout() {
-  //   try {
-  //     const response = await fetch("http://localhost:4001/logout/admin", {
-  //       method: "POST",
-  //       credentials: "include",
-  //     });
-
-  //     if (response.ok) {
-  //       dispatch({ type: "SET_ADMIN_LOGIN", payload: "" });
-  //       navigate("/");
-  //     } else {
-  //       console.error("Failed to log out");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error logging out:", error);
-  //   }
-  // }
 
   return (
     <div className="admin-layout-container">
@@ -68,8 +22,6 @@ function Layout() {
             <img src={loggedInAdmin.profilePicture} alt="profilePic" width={40} height={40} />
           </div>
           {openProfile && <DropDownProfile setOpenProfile={setOpenProfile} />}
-
-          {/* <button onClick={handleLogout}>Log Out</button> */}
         </div>
         <Outlet />
       </div>
