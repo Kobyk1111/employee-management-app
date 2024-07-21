@@ -51,6 +51,29 @@
 .admin-account-settings-page .delete-account-button {
   background-color: rgb(201, 49, 49);
   border: 1px solid rgb(201, 49, 49);
-  /* align-self: flex-end; */
   margin-left: auto;
+}
+
+.admin-account-settings-page .delete-account-button:hover {
+  background-color: rgb(235, 69, 69);
+}
+
+.admin-account-settings-page .delete-account-button:active {
+  background-color: rgb(134, 37, 37);
+}
+
+@media (max-width: 1350px) {
+  .admin-account-settings-page form {
+    padding: 4rem;
+    width: 80%;
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .admin-account-settings-page form {
+    padding: 4rem;
+    width: 90%;
+    max-width: 900px;
+  }
 }
