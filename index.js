@@ -55,7 +55,7 @@ cron.schedule("*/14 * * * *", async () => {
 });
 
 app.get("*", (req, res) => {
-  res.sendFile(__dirname + "frontend/dist");
+  res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
 });
 
 const port = process.env.PORT || 4001;
