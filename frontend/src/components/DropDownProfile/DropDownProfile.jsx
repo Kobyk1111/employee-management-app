@@ -8,6 +8,7 @@ function DropDownProfile({ setOpenProfile }) {
   const {
     state: { loggedInAdmin },
     dispatch,
+    handleHTTPRequestWithToken,
   } = useContext(DataContext);
   const navigate = useNavigate();
 
@@ -15,7 +16,7 @@ function DropDownProfile({ setOpenProfile }) {
   // So a request has to be sent to the backend to remove the cookies
   async function handleLogout() {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API}/logout/admin`, {
+      const response = await handleHTTPRequestWithToken(`${import.meta.env.VITE_API}/logout/admin`, {
         method: "POST",
         credentials: "include",
       });
@@ -36,6 +37,7 @@ function DropDownProfile({ setOpenProfile }) {
     navigate("/admin/profile/account");
     setOpenProfile(false);
   }
+
   return (
     <div className="admin-drop-down-container">
       <ul>

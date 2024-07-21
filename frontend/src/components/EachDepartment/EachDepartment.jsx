@@ -13,7 +13,7 @@ function EachDepartment({ department, index, setNewDepartment, setUpdateDepartme
   async function handleDelete(id) {
     if (confirm(`Are you sure you want to delete ${department.name}`)) {
       try {
-        const response = await handleHTTPRequestWithToken(`http://localhost:4001/department/${id}`, {
+        const response = await handleHTTPRequestWithToken(`${import.meta.env.VITE_API}/department/${id}`, {
           method: "DELETE",
           credentials: "include",
         });
@@ -24,7 +24,7 @@ function EachDepartment({ department, index, setNewDepartment, setUpdateDepartme
           alert(message);
 
           const response2 = await handleHTTPRequestWithToken(
-            `http://localhost:4001/admin/${loggedInAdmin.id}/deleteDepartment/${id}`,
+            `${import.meta.env.VITE_API}/admin/${loggedInAdmin.id}/deleteDepartment/${id}`,
             {
               method: "DELETE",
               credentials: "include",

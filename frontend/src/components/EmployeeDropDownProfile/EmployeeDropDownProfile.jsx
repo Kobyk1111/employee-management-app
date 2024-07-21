@@ -8,6 +8,7 @@ function DropDownProfile({ setOpenProfile }) {
   const {
     state: { loggedInEmployee },
     dispatch,
+    handleHTTPRequestWithToken,
   } = useContext(DataContext);
   const navigate = useNavigate();
 
@@ -15,7 +16,7 @@ function DropDownProfile({ setOpenProfile }) {
   // So a request has to be sent to the backend to remove the cookies
   async function handleLogout() {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API}/logout/employee`, {
+      const response = await handleHTTPRequestWithToken(`${import.meta.env.VITE_API}/logout/employee`, {
         method: "POST",
         credentials: "include",
       });

@@ -72,9 +72,9 @@ function App() {
     const currentPath = location.pathname;
 
     if (currentPath.startsWith("/admin") && !loggedInAdmin && initialLoading) {
-      checkAuth("http://localhost:4001/admin/check-auth", "SET_ADMIN_LOGIN", "lastPath", "/adminLogOrRegister");
+      checkAuth(`${import.meta.env.VITE_API}/admin/check-auth`, "SET_ADMIN_LOGIN", "lastPath", "/adminLogOrRegister");
     } else if (currentPath.startsWith("/employee") && !loggedInEmployee && initialLoading) {
-      checkAuth("http://localhost:4001/employee/check-auth", "SET_EMPLOYEE_LOGIN", "lastPath", "/employeeLogin");
+      checkAuth(`${import.meta.env.VITE_API}/employee/check-auth`, "SET_EMPLOYEE_LOGIN", "lastPath", "/employeeLogin");
     } else {
       // Finish loading state if already logged in or path doesn't require authentication
       if (initialLoading) {
