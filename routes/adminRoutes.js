@@ -10,6 +10,7 @@ import {
   checkAuth,
   updateAdminProfile,
   updateAdminPassword,
+  deleteAccount,
 } from "../controllers/adminController.js";
 import authorizeRole from "../middlewares/authorizeRole.js";
 import { authenticateTokenOfAdmin } from "../middlewares/authenticateToken.js";
@@ -31,5 +32,6 @@ router.patch("/addDepartment/:id", addDepartment);
 router.patch("/addEmployee/:id", addEmployee);
 router.patch("/:id/addLeave", addLeave);
 router.delete("/:id/deleteDepartment/:departmentId", deleteDepartment);
+router.delete("/deleteAccount/:id", deleteAccount);
 
 export default router;

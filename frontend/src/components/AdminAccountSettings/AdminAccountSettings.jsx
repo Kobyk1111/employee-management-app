@@ -62,6 +62,37 @@ function AdminAccountSettings() {
     }
   }
 
+  async function handleDeleteAccount() {
+    if (
+      confirm(
+        "Are you sure you want to delete your account? Please note that since you are the admin, your data and that of your employees will be deleted if you want to delete your account!"
+      )
+    ) {
+      const settings = {
+        method: "DELETE",
+        credentials: "include",
+      };
+
+      try {
+        const response = await handleHTTPRequestWithToken(
+          `${import.meta.env.VITE_API}/admin/deleteAccount/${loggedInAdmin.id}`,
+          settings
+        );
+
+        if (response.ok) {
+          const { message } = await response.json();
+          alert(message);
+          navigate("/adminLogOrRegister");
+        } else {
+          const { error } = await response.json();
+          throw new Error(error.message);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  }
+
   return (
     <div className="admin-account-settings-page">
       {/* <h3>Account Settings</h3> */}
@@ -108,6 +139,9 @@ function AdminAccountSettings() {
           <button type="submit">Update</button>
           <button className="cancel" type="button" onClick={handleCancel}>
             Cancel
+          </button>
+          <button type="button" onClick={handleDeleteAccount} className="delete-account-button">
+            Delete Account
           </button>
         </div>
       </form>

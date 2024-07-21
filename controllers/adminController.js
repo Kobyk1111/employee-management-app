@@ -1,4 +1,7 @@
 import Admin from "../models/Admin.js";
+import Employee from "../models/Employee.js";
+import Leave from "../models/Leave.js";
+import Department from "../models/Department.js";
 import createHttpError from "http-errors";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -463,5 +466,36 @@ export async function updateAdminPassword(req, res, next) {
       return next(createHttpError(400, errMessage));
     }
     next(createHttpError(500, "Failed to update admin's password"));
+  }
+}
+
+export async function deleteAccount(req, res, next) {
+  const { id } = req.params;
+
+  try {
+    const foundAdmin = await Admin.findById(id);
+
+    if (!foundAdmin) {
+      return next(createHttpError(404, "No Admin found"));
+    }
+
+    const companyId = foundAdmin.companyId;
+
+    // Delete the admin
+    await Admin.findByIdAndDelete(id);
+
+    // Delete all employees with the same company ID
+    await Employee.deleteMany({ companyId });
+
+    // Delete all leave requests with the same company ID
+    await Leave.deleteMany({ companyId });
+
+    // Delete all departments with the same company ID
+    await Department.deleteMany({ companyId });
+
+    res.status(200).json({ message: "Your Account and all associated records have been successfully deleted." });
+  } catch (error) {
+    console.error(error);
+    next(createHttpError(500, "There was a problem deleting your account and associated records."));
   }
 }
