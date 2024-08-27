@@ -11,8 +11,8 @@ import refreshTokenRouter from "./routes/refreshTokenRoute.js";
 import logoutRouter from "./routes/logoutRoute.js";
 import path from "path";
 import { fileURLToPath } from "url";
-// import cron from "node-cron";
-// import axios from "axios";
+import cron from "node-cron";
+import axios from "axios";
 
 connect();
 
@@ -23,7 +23,11 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:5173", "https://employee-management-app-ktfx.onrender.com/"],
+    origin: [
+      "http://localhost:5173",
+      "https://employee-management-app-ktfx.onrender.com",
+      "https://employee-management-app-3mri.onrender.com",
+    ],
   })
 );
 
@@ -47,7 +51,7 @@ app.get("/ping", (req, res) => {
 // Schedule a task to ping the server every 14 minutes
 cron.schedule("*/14 * * * *", async () => {
   try {
-    await axios.get("https://employee-management-app-ktfx.onrender.com/ping");
+    await axios.get("https://employee-management-app-3mri.onrender.com");
     console.log("Ping successful");
   } catch (error) {
     console.error("Error pinging the server:", error);
