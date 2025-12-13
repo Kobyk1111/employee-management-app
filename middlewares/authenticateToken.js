@@ -35,7 +35,11 @@ export async function authenticateTokenOfAdmin(req, res, next) {
         throw new Error("Admin not found");
       }
 
-      const newAccessToken = jwt.sign({ id: foundAdmin._id }, process.env.JWT_SECRET_KEY, { expiresIn: "15m" });
+      const newAccessToken = jwt.sign(
+        { id: foundAdmin._id },
+        process.env.JWT_SECRET_KEY,
+        { expiresIn: "15m" }
+      );
       res.cookie("adminAccessCookie", newAccessToken, {
         httpOnly: true,
         secure: true,
@@ -87,7 +91,11 @@ export async function authenticateTokenOfEmployee(req, res, next) {
         throw new Error("Employee not found");
       }
 
-      const newAccessToken = jwt.sign({ id: foundEmployee._id }, process.env.JWT_SECRET_KEY, { expiresIn: "15m" });
+      const newAccessToken = jwt.sign(
+        { id: foundEmployee._id },
+        process.env.JWT_SECRET_KEY,
+        { expiresIn: "15m" }
+      );
       res.cookie("employeeAccessCookie", newAccessToken, {
         httpOnly: true,
         secure: true,

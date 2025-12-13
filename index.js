@@ -11,8 +11,8 @@ import refreshTokenRouter from "./routes/refreshTokenRoute.js";
 import logoutRouter from "./routes/logoutRoute.js";
 import path from "path";
 import { fileURLToPath } from "url";
-import cron from "node-cron";
-import axios from "axios";
+// import cron from "node-cron";
+// import axios from "axios";
 
 connect();
 
@@ -27,6 +27,7 @@ app.use(
       "http://localhost:5173",
       "https://employee-management-app-ktfx.onrender.com",
       "https://employee-management-app-3mri.onrender.com",
+      "https://employee-management-app.apps.worlanyokwablakporfeame.com",
     ],
   })
 );
@@ -43,26 +44,38 @@ app.use("/leave", leaveRouter);
 app.use("/refresh-token", refreshTokenRouter);
 app.use("/logout", logoutRouter);
 
-// Create a ping endpoint
-app.get("/ping", (req, res) => {
-  res.send("Pong");
-});
+// Health check for Coolify
+app.get("/health", (_, res) => res.send("OK"));
 
-// Schedule a task to ping the server every 14 minutes
-cron.schedule("*/14 * * * *", async () => {
-  try {
-    await axios.get("https://employee-management-app-3mri.onrender.com");
-    console.log("Ping successful");
-  } catch (error) {
-    console.error("Error pinging the server:", error);
-  }
-});
+// // Create a ping endpoint
+// app.get("/ping", (req, res) => {
+//   res.send("Pong");
+// });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
-});
+// // Schedule a task to ping the server every 14 minutes
+// cron.schedule("*/14 * * * *", async () => {
+//   try {
+//     await axios.get("https://employee-management-app-3mri.onrender.com");
+//     console.log("Ping successful");
+//   } catch (error) {
+//     console.error("Error pinging the server:", error);
+//   }
+// });
 
-const port = process.env.PORT || 4001;
+// Serve frontend only in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "frontend/dist")));
+
+  app.get("*", (req, res) =>
+    res.sendFile(path.join(__dirname, "frontend/dist/index.html"))
+  );
+}
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
+// });
+
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
 
 app.use(globalErrorHandler);
